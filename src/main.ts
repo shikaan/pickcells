@@ -1,7 +1,6 @@
-import { draw, Grid, makeCell, makeMaskCell } from './draw';
+import { draw, Grid, makeMask, PixelGrid } from './draw';
 
 const form = document.getElementById('testing');
-const grid = document.getElementById('grid') as HTMLInputElement;
 const mask = document.getElementById('mask') as HTMLTextAreaElement;
 const sizeX = document.getElementById('sizeX') as HTMLInputElement;
 const sizeY = document.getElementById('sizeY') as HTMLInputElement;
@@ -19,21 +18,15 @@ sizeY.addEventListener('change', (e) => {
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  // const maskCellZero = mask.value.split('').filter(i => /\d/.test(i)).map(makeMaskCell);
   const x = Number.parseInt(sizeX.value, 10);
   const y = Number.parseInt(sizeY.value, 10);
-  // const g = Grid.fromString(grid.value, makeCell);
-  const g = Grid.fromString(mask.value, makeMaskCell);
-
-  // console.log(g)
+  const maskGrid = Grid.fromString(mask.value, makeMask);
+  const pixelGrid = PixelGrid.fromMaskGrid(maskGrid);
 
   // check size
 
-  // const grid = makeGridFromMaskGrid([maskCellZero, [x, y]]);
-
   try {
-    draw(Grid.fromMaskGrid(g))
-    // draw(g)
+    draw(pixelGrid)
   } catch (e: any) {
     alert(e.message);
   }

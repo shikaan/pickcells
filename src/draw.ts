@@ -12,39 +12,6 @@ export const Grid = {
       return line.split('').filter(i => /\d/.test(i)).map(parser)
     })
   },
-  fromMaskGrid(g: Grid<MaskCell>, mirrorX = true): Grid<Cell> {
-    const borderless: Grid<Cell> = []
-
-    // Fill the grid based on mask values
-    Grid.forEachCell(g, (cell, row, col) => {
-      if (col == 0) borderless.push([]);
-
-      if (mirrorX) {
-        const cols = Grid.cols(g);
-        const line = borderless[row];
-        if (col >= cols / 2) {
-          line[col] = line[cols - col - 1];
-          return;
-        }
-      }
-
-      if (cell == MaskCell.AlwaysEmpty) {
-        borderless[row][col] = Cell.Empty;
-      } else if (cell == MaskCell.AlwaysBorder) {
-        borderless[row][col] = Cell.Border;
-      } else if (cell == MaskCell.AlwaysFilled) {
-        borderless[row][col] = Cell.Filled;
-      } else if (cell == MaskCell.BorderOrFilled) {
-        borderless[row][col] = Math.random() > .5 ? Cell.Border : Cell.Filled;
-      } else if (cell == MaskCell.EmptyOrFilled) {
-        borderless[row][col] = Math.random() > .5 ? Cell.Empty : Cell.Filled;
-      } else {
-        borderless[row][col] = Cell.Empty;
-      }
-    })
-
-    return borderless
-  },
   forEachCell<T>(grid: Grid<T>, callback: (c: T, row: number, col: number) => void) {
     const rows = grid.length;
     const cols = grid[0].length;
@@ -63,17 +30,53 @@ export const Grid = {
   },
 }
 
-enum Cell {
+export const PixelGrid = {
+  fromMaskGrid(g: Grid<Mask>, mirrorX = true): Grid<Pixel> {
+    const borderless: Grid<Pixel> = []
+
+    // Fill the grid based on mask values
+    Grid.forEachCell(g, (cell, row, col) => {
+      if (col == 0) borderless.push([]);
+
+      if (mirrorX) {
+        const cols = Grid.cols(g);
+        const line = borderless[row];
+        if (col >= cols / 2) {
+          line[col] = line[cols - col - 1];
+          return;
+        }
+      }
+
+      if (cell == Mask.AlwaysEmpty) {
+        borderless[row][col] = Pixel.Empty;
+      } else if (cell == Mask.AlwaysBorder) {
+        borderless[row][col] = Pixel.Border;
+      } else if (cell == Mask.AlwaysFilled) {
+        borderless[row][col] = Pixel.Filled;
+      } else if (cell == Mask.BorderOrFilled) {
+        borderless[row][col] = Math.random() > .5 ? Pixel.Border : Pixel.Filled;
+      } else if (cell == Mask.EmptyOrFilled) {
+        borderless[row][col] = Math.random() > .5 ? Pixel.Empty : Pixel.Filled;
+      } else {
+        borderless[row][col] = Pixel.Empty;
+      }
+    })
+
+    return borderless
+  },
+}
+
+enum Pixel {
   Empty,
   Border,
   Filled
 }
 
-export function makeCell(s: string): Cell {
-  return Number.parseInt(s, 3) as Cell;
+export function makePixel(s: string): Pixel {
+  return Number.parseInt(s, 3) as Pixel;
 }
 
-enum MaskCell {
+enum Mask {
   AlwaysEmpty = 0,
   AlwaysBorder = 1,
   AlwaysFilled = 2,
@@ -82,8 +85,8 @@ enum MaskCell {
   Bounds = 5,
 };
 
-export function makeMaskCell(s: string): MaskCell {
-  return Number.parseInt(s, 6) as MaskCell;
+export function makeMask(s: string): Mask {
+  return Number.parseInt(s, 6) as Mask;
 }
 
 // The size of a single pixel, in real size
@@ -91,16 +94,16 @@ const PIXEL_SIZE = 10;
 const BORDER_COLOR = "#000000";
 const FILL_COLOR = "#9A9A9A";
 
-export function draw(grid: Grid<Cell>) {
+export function draw(pixelGrid: Grid<Pixel>) {
   const ctx = canavs.getContext('2d')!;
 
   // clean the rect
   ctx.clearRect(0, 0, canavs.width, canavs.height);
 
-  Grid.forEachCell(grid, (cell, row, col) => {
-    if (cell == Cell.Empty) return;
+  Grid.forEachCell(pixelGrid, (cell, row, col) => {
+    if (cell == Pixel.Empty) return;
 
-    ctx.fillStyle = cell == Cell.Border ? BORDER_COLOR : FILL_COLOR;
+    ctx.fillStyle = cell == Pixel.Border ? BORDER_COLOR : FILL_COLOR;
 
     const x = col * PIXEL_SIZE;
     const y = row * PIXEL_SIZE;
