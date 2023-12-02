@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixel Art Generator</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <form id="testing">
+      <textarea wrap="hard" id="mask" cols="1" rows="2" style="resize: none;" placeholder="mask"></textarea>
+      <textarea wrap="hard" id="grid" cols="1" rows="2" style="resize: none;" placeholder="grid"></textarea>
+      <input id="sizeX" type="number" placeholder="X" value="2">
+      <input id="sizeY" type="number" placeholder="Y" value="2">
+      <button type="submit" id="generate">Generate</button>
+    </form>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+
