@@ -28,23 +28,29 @@ export const Grid = {
   rows<T>(g: Grid<T>) {
     return g.length
   },
+  neighbors<T>(g: Grid<T>, row: number, col: number) {
+    return [
+      g[row]?.[col - 1],
+      g[row]?.[col + 1],
+      g[row - 1]?.[col],
+      g[row + 1]?.[col],
+    ].filter(Boolean)
+  }
 }
 
 export const PixelGrid = {
-  fromMaskGrid(g: Grid<Mask>, mirrorX = true): Grid<Pixel> {
+  fromMaskGrid(g: Grid<Mask>): Grid<Pixel> {
     const borderless: Grid<Pixel> = []
 
     // Fill the grid based on mask values
     Grid.forEachCell(g, (cell, row, col) => {
       if (col == 0) borderless.push([]);
 
-      if (mirrorX) {
-        const cols = Grid.cols(g);
-        const line = borderless[row];
-        if (col >= cols / 2) {
-          line[col] = line[cols - col - 1];
-          return;
-        }
+      const cols = Grid.cols(g);
+      const line = borderless[row];
+      if (col >= cols / 2) {
+        line[col] = line[cols - col - 1];
+        return;
       }
 
       if (cell == Mask.AlwaysEmpty) {
@@ -62,7 +68,21 @@ export const PixelGrid = {
       }
     })
 
-    return borderless
+    const result: Grid<Pixel> = []
+
+    // Draw borders around filled areas
+    Grid.forEachCell(borderless, (cell, row, col) => {
+      if (col == 0) result.push([]);
+      result[row][col] = cell;
+      if (cell != Pixel.Empty) return;
+      const neighbors = Grid.neighbors(borderless, row, col);
+
+      if (neighbors.some(n => n != cell && n != Pixel.Border)) {
+        result[row][col] = Pixel.Border;
+      }
+    })
+
+    return result
   },
 }
 
