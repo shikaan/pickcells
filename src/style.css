@@ -1,1 +1,15 @@
-@import url('../node_modules/water.css/out/water.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css');
+
+body {
+  display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-columns: 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 16px; 
+  grid-template-areas: 
+    "side main main main"; 
+}
+
+aside { grid-area: side; }
+
+main { grid-area: main; }

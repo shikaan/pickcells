@@ -1,5 +1,5 @@
-import { forEachCell } from "./lib/grid";
-import { Sprite, SpriteCell } from "./lib/sprite";
+import { forEachCell } from "../lib/grid";
+import { Sprite, SpriteCell } from "../lib/sprite";
 
 // The size of a single pixel, in real size
 const PIXEL_SIZE = 10;

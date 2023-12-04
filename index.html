@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <canvas id="canvas"></canvas>
-    <form id="testing">
-      <textarea wrap="hard" id="mask" cols="12" rows="12" style="resize: none;" placeholder="mask"></textarea>
-      <textarea wrap="hard" id="grid" cols="1" rows="2" style="resize: none;" placeholder="grid"></textarea>
-      <input id="sizeX" type="number" placeholder="X" value="12">
-      <input id="sizeY" type="number" placeholder="Y" value="12">
-      <button type="submit" id="generate">Generate</button>
-    </form>
+    <aside></aside>
+    <main>
+      <section>
+        <div class="mask" id="mask"></div>
+      </section>
+      <section>
+        <canvas></canvas>
+      </section>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
