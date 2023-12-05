@@ -21,8 +21,8 @@ export class Sidebar {
         </div>
 
         <div class="nes-field">
-          <label for="brush">Color</label>
-          <input type="color" id="brush" class="nes-progress" value="${initialState.color}">
+          <label for="color">Color</label>
+          <input type="color" id="color" class="nes-progress" value="${initialState.color}">
           </div>
           
           <div class="nes-field">
@@ -76,7 +76,12 @@ export class Sidebar {
     private state: State<typeof initialState>,
     private submit: () => void,
     private updatePreview: () => void,
-  ) { }
+  ) {
+    document.documentElement.style.setProperty("--color-filled", initialState.color);
+    state.onPropertyChange('color', (_, newValue) => {
+      document.documentElement.style.setProperty("--color-filled", newValue);
+    });
+  }
 
   render() {
     const inst = this.template.create()!;

@@ -56,5 +56,5 @@ export const initialState = {
   rows: 8,
   mask: [] as Mask,
   sprite: [] as Sprite,
-  color: '#9A9A9A',
+  color: '#088088',
 }
