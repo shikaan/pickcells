@@ -12,9 +12,12 @@ class MaskCell {
   constructor(
     private x: number,
     private y: number,
+    private disabled: boolean = false,
   ) { }
 
   replaceCellType(type: MaskCellType) {
+    if (this.disabled) return;
+
     const oldType = this.type;
     this.type = type;
     this.instance.classList.replace(`cell-${oldType}`, `cell-${type}`);
@@ -25,7 +28,11 @@ class MaskCell {
 
     inst.setAttribute('data-col', this.x.toString());
     inst.setAttribute('data-row', this.y.toString());
-    inst.classList.add(`cell-${this.type}`);
+    if (!this.disabled) {
+      inst.classList.add(`cell-${this.type}`);
+    } else {
+      inst.classList.add(`cell-disabled`);
+    }
 
     this.instance?.replaceWith(inst);
     this.instance = inst;
@@ -71,7 +78,7 @@ export class Mask {
     for (let row = 0; row < rows; row++) {
       this.cellsRefs[row] = [];
       for (let col = 0; col < cols; col++) {
-        const cell = new MaskCell(col, row);
+        const cell = new MaskCell(col, row, col >= Math.ceil(cols / 2));
         this.cellsRefs[row][col] = cell;
         mask.appendChild(cell.render());
       }

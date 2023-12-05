@@ -57,6 +57,6 @@ export const initialState = {
   rows: 8,
   mask: [] as Mask,
   sprite: [] as Sprite,
-  color: '#088088',
+  color: '#e76e55',
   brush: MaskCell.AlwaysBorder,
 }

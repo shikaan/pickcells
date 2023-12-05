@@ -27,6 +27,7 @@
       &.cell-2 { background: var(--filled-bg); }
       &.cell-3 { background: var(--border-filled-bg); }
       &.cell-4 { background: var(--empty-filled-bg); }
+      &.cell-disabled { background: var(--grid-color); }
     }
   }
 }
