@@ -49,10 +49,12 @@ export interface InitialState {
   rows: number;
   mask: Mask;
   sprite: Sprite;
+  color: string;
 }
 export const initialState = {
-  cols: 10,
-  rows: 10,
+  cols: 8,
+  rows: 8,
   mask: [] as Mask,
   sprite: [] as Sprite,
+  color: '#9A9A9A',
 }

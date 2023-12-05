@@ -13,7 +13,7 @@ const sidebar = new Sidebar(state, () => {
   const sprite = fromMask(mask);
   state.set('sprite', sprite);
   preview.update();
-});
+}, () => preview.update());
 
 render(mask.render(), document.querySelector('#mask')!);
 render(sidebar.render(), document.querySelector('aside')!);

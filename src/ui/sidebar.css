@@ -19,6 +19,10 @@ form {
     .nes-field {
       padding: var(--v-spacing) 0;
     }
+
+    #color {
+      width: calc(100% - 8px);
+    }
   }
 
   footer { 

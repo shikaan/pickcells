@@ -12,12 +12,17 @@ export class Sidebar {
       <section>
         <div class="nes-field">
           <label for="cols">Columns</label>
-          <input type="number" id="cols" class="nes-input" value="10">
+          <input type="number" id="cols" class="nes-input" value="${initialState.cols}">
         </div>
 
         <div class="nes-field">
           <label for="rows">Rows</label>
-          <input type="number" id="rows" class="nes-input" value="10">
+          <input type="number" id="rows" class="nes-input" value="${initialState.rows}">
+        </div>
+
+        <div class="nes-field">
+          <label for="color">Color</label>
+          <input type="color" id="color" class="nes-progress" value="${initialState.color}">
         </div>
       </section>
 
@@ -31,6 +36,7 @@ export class Sidebar {
   constructor(
     private state: State<typeof initialState>,
     private submit: () => void,
+    private updatePreview: () => void,
   ) { }
 
   render() {
@@ -38,12 +44,20 @@ export class Sidebar {
 
     inst.querySelector('#cols')?.addEventListener('change', this.onUpdate('cols'));
     inst.querySelector('#rows')?.addEventListener('change', this.onUpdate('rows'));
+    inst.querySelector('#color')?.addEventListener('change', this.onUpdateColor);
     inst.addEventListener('submit', this.onSubmit);
 
     this.instance?.replaceWith(inst);
     this.instance = inst.firstChild as HTMLElement;
 
     return inst;
+  }
+
+  onUpdateColor = (e: Event) => {
+    const element = e.target as HTMLInputElement;
+    const color = element.value;
+    this.state.set('color', color);
+    this.updatePreview()
   }
 
   onUpdate = (property: keyof typeof initialState) => (e: Event) => {

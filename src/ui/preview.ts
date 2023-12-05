@@ -5,7 +5,6 @@ import { template } from "./utils";
 
 const PIXEL_SIZE = 10;
 const BORDER_COLOR = "#000000";
-const FILL_COLOR = "#9A9A9A";
 
 export class Preview {
   template = template('<canvas></canvas>')
@@ -30,7 +29,7 @@ export class Preview {
     forEachCell(this.state.get('sprite'), (cell, row, col) => {
       if (cell == SpriteCell.Empty) return;
 
-      ctx.fillStyle = cell == SpriteCell.Border ? BORDER_COLOR : FILL_COLOR;
+      ctx.fillStyle = cell == SpriteCell.Border ? BORDER_COLOR : this.state.get('color');
 
       const x = col * PIXEL_SIZE;
       const y = row * PIXEL_SIZE;
