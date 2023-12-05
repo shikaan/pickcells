@@ -15,6 +15,6 @@ const sidebar = new Sidebar(state, () => {
   preview.update();
 });
 
-render(sidebar.render(), document.querySelector('aside')!);
 render(mask.render(), document.querySelector('#mask')!);
+render(sidebar.render(), document.querySelector('aside')!);
 render(preview.render(), document.querySelector('#preview')!);

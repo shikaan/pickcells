@@ -4,15 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Art Generator</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <aside></aside>
+    <aside class="nes-container"></aside>
     <main>
-      <section>
-        <div class="mask" id="mask"></div>
+      <section class="nes-container with-title">
+        <p class="title">Mask</p>
+        <div id="mask"></div>
       </section>
-      <section>
+      <section class="nes-container with-title">
+        <p class="title">Preview</p>
         <div class="preview" id="preview"></div>
       </section>
     </main>

@@ -1,15 +1,57 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css');
+:root {
+  --text-color: #333333;
+  --text-disabled: #777777;
+  --background: #FFFFFF;
+  --background-alternate: #BBBBBB;
+  --primary: #DD8855;
+  --primary-accent: #EEEE77;
+  --secondary: #0000AA;
+  --secondary-accent: #0088FF;
+  
+  --text-size: 16px;
+
+  --half-size: 4px;
+  --size: 8px;
+  --size-1: var(--size);
+  --size-2: calc(var(--size) * 2);
+
+  --spacing: var(--size-2);
+  --v-spacing: var(--size-2);
+  --h-spacing: var(--size);
+}
+
+html {
+  background-color: var(--background);
+  font-size: var(--text-size);
+  color: var(--text-color);
+}
 
 body {
+  padding: var(--spacing);
   display: grid; 
   grid-auto-columns: 1fr; 
   grid-template-columns: 1fr 1fr 1fr 1fr; 
   grid-template-rows: 1fr; 
-  gap: 0px 16px; 
+  gap: var(--spacing); 
   grid-template-areas: 
     "side main main main"; 
+  height: 100vh;
 }
 
 aside { grid-area: side; }
+main {
+  grid-area: main;
+  display: grid;
+  grid-auto-columns: 1fr;
+  gap: var(--spacing);
 
-main { grid-area: main; }
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    #mask {
+      margin: auto;
+    }
+  }
+}

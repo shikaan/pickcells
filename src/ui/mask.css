@@ -1,13 +1,16 @@
 .mask {
   --rows: 12;
   --cols: 12;
-  --size: 24px;
-
+  --size: 32px;
+  --grid-color: #d3d3d3;
   display: grid;
   grid-template-rows: repeat(var(--rows), var(--size)); /* Adjust the number and size of rows as needed */
   grid-template-columns: repeat(var(--cols), var(--size)); /* Adjust the number and size of columns as needed */
-  gap: 2px;
-  background-color: #ddd;
+  gap: var(--half-size);
+  background-color: var(--grid-color);
+  width: fit-content;
+  height: fit-content;
+  border: var(--half-size) solid var(--grid-color);
 
   .cell {
     --empty-color: #ffffff;

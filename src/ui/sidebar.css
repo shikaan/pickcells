@@ -1,0 +1,33 @@
+form {
+  height: 100%;
+
+  display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-columns: 1fr; 
+  grid-template-rows: min-content 1fr min-content; 
+  gap: 0px 0px;
+  grid-template-areas: 
+    "title"
+    "fields"
+    "submit";
+
+  header { grid-area: title; }
+  
+  section { 
+    grid-area: fields;
+
+    .nes-field {
+      padding: var(--v-spacing) 0;
+    }
+  }
+
+  footer { 
+    grid-area: submit;
+    padding: var(--v-spacing);
+    text-align: center;
+
+    .nes-btn {
+      padding: var(--v-spacing) var(-h-spacing);
+    }
+  }
+}
