@@ -1,7 +1,7 @@
 import './mask.css'
 import { MaskCell as MaskCellType, Mask as MaskType } from "../lib/mask";
 import { template } from "./utils";
-import { InitialState, State, initialState } from './state';
+import { InitialState, State } from './state';
 
 class MaskCell {
   template = template(`<div class="cell"></div>`)
@@ -12,15 +12,12 @@ class MaskCell {
   constructor(
     private x: number,
     private y: number,
-    private updateMask: () => void,
-    private state: State<InitialState>,
   ) { }
 
-  private onClick() {
+  replaceCellType(type: MaskCellType) {
     const oldType = this.type;
-    this.type = this.state.get('brush');
-    this.instance.classList.replace(`cell-${oldType}`, `cell-${this.type}`);
-    this.updateMask();
+    this.type = type;
+    this.instance.classList.replace(`cell-${oldType}`, `cell-${type}`);
   }
 
   render() {
@@ -29,7 +26,6 @@ class MaskCell {
     inst.setAttribute('data-col', this.x.toString());
     inst.setAttribute('data-row', this.y.toString());
     inst.classList.add(`cell-${this.type}`);
-    inst.addEventListener('click', this.onClick.bind(this));
 
     this.instance?.replaceWith(inst);
     this.instance = inst;
@@ -43,13 +39,18 @@ class MaskCell {
 }
 
 export class Mask {
-  template = template(`<div class="mask"></div>`)
+  template = template(`
+    <div class="mask-container">
+      <div class="mask"></div>
+    </div>
+  `)
 
   private instance!: HTMLElement;
   private cellsRefs: MaskCell[][] = [];
+  private isDrawing: boolean = false;
 
   constructor(
-    private state: State<typeof initialState>,
+    private state: State<InitialState>,
   ) {
     this.render();
 
@@ -58,42 +59,76 @@ export class Mask {
   }
 
   render() {
-    const inst = this.template.create();
+    const container = this.template.create();
+    const mask = container.querySelector('.mask') as HTMLElement;
     const cols = this.state.get('cols');
     const rows = this.state.get('rows');
 
-    inst.style.setProperty('--rows', rows.toString());
-    inst.style.setProperty('--cols', cols.toString());
+    mask.style.setProperty('--rows', rows.toString());
+    mask.style.setProperty('--cols', cols.toString());
 
     this.cellsRefs = []
-    for (let x = 0; x < cols; x++) {
-      this.cellsRefs[x] = [];
-      for (let y = 0; y < rows; y++) {
-        const cell = new MaskCell(x, y, this.updateMask.bind(this), this.state);
-        this.cellsRefs[x][y] = cell;
-        inst.appendChild(cell.render());
+    for (let row = 0; row < rows; row++) {
+      this.cellsRefs[row] = [];
+      for (let col = 0; col < cols; col++) {
+        const cell = new MaskCell(col, row);
+        this.cellsRefs[row][col] = cell;
+        mask.appendChild(cell.render());
       }
     }
 
-    this.instance?.replaceWith(inst);
-    this.instance = inst;
+    mask.addEventListener('click', (e) => {
+      this.updateCurrentCell(e);
+      this.updateMask();
+    })
+    mask.addEventListener('pointerdown', this.startDrawing);
+    container.addEventListener('pointerleave', this.endDrawing);
+    container.addEventListener('pointerup', this.endDrawing);
+    container.addEventListener('pointermove', (e) => {
+      if (!this.isDrawing) return;
+      this.updateCurrentCell(e);
+    })
+
+    this.instance?.replaceWith(container);
+    this.instance = container;
     this.updateMask();
 
-    return inst;
+    return container;
   }
 
-  updateMask() {
+  private updateMask() {
     const cols = this.state.get('cols');
     const rows = this.state.get('rows');
     const mask: MaskType = [];
 
-    for (let x = 0; x < cols; x++) {
-      mask[x] = [];
-      for (let y = 0; y < rows; y++) {
-        mask[x][y] = this.cellsRefs[x][y].getType();
+    for (let row = 0; row < rows; row++) {
+      mask[row] = [];
+      for (let col = 0; col < cols; col++) {
+        mask[row][col] = this.cellsRefs[row][col].getType();
       }
     }
 
     this.state.set('mask', mask);
+  }
+
+  updateCurrentCell = (e: Event) => {
+    const el = e.target as HTMLElement;
+    const col = el.getAttribute('data-col');
+    const row = el.getAttribute('data-row');
+    if (!col || !row) return;
+
+    // @ts-expect-error
+    const cell = this.cellsRefs[row][col];
+
+    cell.replaceCellType(this.state.get('brush'));
+  }
+
+  endDrawing = () => {
+    this.isDrawing = false;
+    this.updateMask();
+  }
+
+  startDrawing = () => {
+    this.isDrawing = true;
   }
 }

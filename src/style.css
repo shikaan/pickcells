@@ -86,6 +86,11 @@
 body {
   font-size: var(--text-size);
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   padding: var(--spacing);
   display: grid; 
   grid-auto-columns: 1fr; 
@@ -101,7 +106,7 @@ aside { grid-area: side; }
 main {
   grid-area: main;
   display: grid;
-  grid-auto-columns: 1fr;
+  grid-template-rows: 2fr 1fr;
   gap: var(--spacing);
 
   section {
@@ -110,7 +115,10 @@ main {
     flex-direction: column;
     
     #mask {
-      margin: auto;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      height: 100%;
     }
   }
 }

@@ -1,25 +1,32 @@
-.mask {
-  --rows: 12;
-  --cols: 12;
-  --size: 24px;
-  --grid-color: #d3d3d3;
+.mask-container {
+  width: 100%;
   display: grid;
-  grid-template-rows: repeat(var(--rows), var(--size)); /* Adjust the number and size of rows as needed */
-  grid-template-columns: repeat(var(--cols), var(--size)); /* Adjust the number and size of columns as needed */
-  gap: var(--half-size);
-  background-color: var(--grid-color);
-  width: fit-content;
-  height: fit-content;
-  border: var(--half-size) solid var(--grid-color);
-
-  .cell {
-    height: var(--size);
-    width: var(--size);
-
-    &.cell-0 { background: var(--empty-bg); }
-    &.cell-1 { background: var(--border-bg); }
-    &.cell-2 { background: var(--filled-bg); }
-    &.cell-3 { background: var(--border-filled-bg); }
-    &.cell-4 { background: var(--empty-filled-bg); }
+  place-items: center;
+  height: 100%;
+  
+  .mask {
+    --rows: 12;
+    --cols: 12;
+    --size: 24px;
+    --grid-color: #d3d3d3;
+    display: grid;
+    grid-template-rows: repeat(var(--rows), var(--size));
+    grid-template-columns: repeat(var(--cols), var(--size));
+    gap: 2px;
+    background-color: var(--grid-color);
+    width: fit-content;
+    height: fit-content;
+    border: var(--half-size) solid var(--grid-color);
+  
+    .cell {
+      height: var(--size);
+      width: var(--size);
+  
+      &.cell-0 { background: var(--empty-bg); }
+      &.cell-1 { background: var(--border-bg); }
+      &.cell-2 { background: var(--filled-bg); }
+      &.cell-3 { background: var(--border-filled-bg); }
+      &.cell-4 { background: var(--empty-filled-bg); }
+    }
   }
 }
