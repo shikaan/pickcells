@@ -56,6 +56,10 @@
 /* Shared mask colors */
 :root {
   --color-empty: var(--color-white);
+  /* 
+    This is actually controlled by javascript.
+    It's synced with the 'color' property in the state. 
+   */
   --color-filled: #088;
   --color-border: var(--color-black);
   --strip-size: var(--size);

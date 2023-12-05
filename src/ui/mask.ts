@@ -1,7 +1,7 @@
 import './mask.css'
-import { MaskCell as MaskCellType, Mask as MaskType, NUMBER_OF_STATES } from "../lib/mask";
+import { MaskCell as MaskCellType, Mask as MaskType } from "../lib/mask";
 import { template } from "./utils";
-import { State, initialState } from './state';
+import { InitialState, State, initialState } from './state';
 
 class MaskCell {
   template = template(`<div class="cell"></div>`)
@@ -13,11 +13,12 @@ class MaskCell {
     private x: number,
     private y: number,
     private updateMask: () => void,
+    private state: State<InitialState>,
   ) { }
 
   private onClick() {
     const oldType = this.type;
-    this.type = (this.type + 1) % NUMBER_OF_STATES;
+    this.type = this.state.get('brush');
     this.instance.classList.replace(`cell-${oldType}`, `cell-${this.type}`);
     this.updateMask();
   }
@@ -68,7 +69,7 @@ export class Mask {
     for (let x = 0; x < cols; x++) {
       this.cellsRefs[x] = [];
       for (let y = 0; y < rows; y++) {
-        const cell = new MaskCell(x, y, this.updateMask.bind(this));
+        const cell = new MaskCell(x, y, this.updateMask.bind(this), this.state);
         this.cellsRefs[x][y] = cell;
         inst.appendChild(cell.render());
       }
