@@ -3,18 +3,18 @@ import { render } from './ui/utils';
 import { Sidebar } from './ui/sidebar';
 import { InitialState, State, initialState } from './ui/state';
 import { fromMask } from './lib/sprite';
-import { draw } from './ui/canvas';
+import { Preview } from './ui/preview';
 
-const canavs = document.querySelector('canvas') as HTMLCanvasElement;
 const state = new State<InitialState>(initialState);
+const preview = new Preview(state);
 const mask = new Mask(state);
 const sidebar = new Sidebar(state, () => {
   const mask = state.get('mask');
-  console.log(mask)
   const sprite = fromMask(mask);
-  console.log(sprite)
-  draw(sprite, canavs);
+  state.set('sprite', sprite);
+  preview.update();
 });
 
-render(mask.render(), document.getElementById('mask')!);
 render(sidebar.render(), document.querySelector('aside')!);
+render(mask.render(), document.querySelector('#mask')!);
+render(preview.render(), document.querySelector('#preview')!);

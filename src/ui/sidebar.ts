@@ -20,15 +20,15 @@ export class Sidebar {
 
   constructor(
     private state: State<typeof initialState>,
-    private draw: () => void,
+    private submit: () => void,
   ) { }
 
   render() {
     const inst = this.template.create()!;
 
-    inst.querySelector('#cols')?.addEventListener('change', this.update('cols'));
-    inst.querySelector('#rows')?.addEventListener('change', this.update('rows'));
-    inst.addEventListener('submit', this.submit);
+    inst.querySelector('#cols')?.addEventListener('change', this.onUpdate('cols'));
+    inst.querySelector('#rows')?.addEventListener('change', this.onUpdate('rows'));
+    inst.addEventListener('submit', this.onSubmit);
 
     this.instance?.replaceWith(inst);
     this.instance = inst.firstChild as HTMLElement;
@@ -36,14 +36,14 @@ export class Sidebar {
     return inst;
   }
 
-  update = (property: keyof typeof initialState) => (e: Event) => {
+  onUpdate = (property: keyof typeof initialState) => (e: Event) => {
     const element = e.target as HTMLInputElement;
     const n = Number.parseInt(element.value, 10);
     this.state.set(property, n);
   }
 
-  submit = (e: Event) => {
+  onSubmit = (e: Event) => {
     e.preventDefault();
-    this.draw();
+    this.submit();
   }
 }

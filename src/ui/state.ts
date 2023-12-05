@@ -1,4 +1,5 @@
 import { Mask } from "../lib/mask";
+import { Sprite } from "../lib/sprite";
 
 export class State<T extends object> {
   private proxy: T;
@@ -12,7 +13,7 @@ export class State<T extends object> {
     return this.proxy[property];
   }
 
-  set(property: keyof T, newValue: T[keyof T]) {
+  set<S extends keyof T>(property: S, newValue: T[S]) {
     this.proxy[property] = newValue;
   }
 
@@ -47,9 +48,11 @@ export interface InitialState {
   cols: number;
   rows: number;
   mask: Mask;
+  sprite: Sprite;
 }
 export const initialState = {
   cols: 10,
   rows: 10,
   mask: [] as Mask,
+  sprite: [] as Sprite,
 }
