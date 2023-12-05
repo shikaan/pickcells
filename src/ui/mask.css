@@ -1,7 +1,7 @@
 .mask {
   --rows: 12;
   --cols: 12;
-  --size: 32px;
+  --size: 24px;
   --grid-color: #d3d3d3;
   display: grid;
   grid-template-rows: repeat(var(--rows), var(--size)); /* Adjust the number and size of rows as needed */
@@ -13,34 +13,13 @@
   border: var(--half-size) solid var(--grid-color);
 
   .cell {
-    --empty-color: #ffffff;
-    --filled-color: #DB3069;
-    --border-color: #3C3C3B;
-    --strip-size: calc(var(--size) / 4);
-
     height: var(--size);
     width: var(--size);
 
-    &.cell-0 { background-color: var(--empty-color); }
-    &.cell-1 { background-color: var(--border-color); }
-    &.cell-2 { background-color: var(--filled-color); }
-    &.cell-3 { 
-      background: repeating-linear-gradient(
-        45deg,
-        var(--border-color),
-        var(--border-color) var(--strip-size),
-        var(--filled-color) var(--strip-size),
-        var(--filled-color) calc(2 * var(--strip-size))
-      );
-    }
-    &.cell-4 { 
-      background: repeating-linear-gradient(
-        45deg,
-        var(--empty-color),
-        var(--empty-color) var(--strip-size),
-        var(--filled-color) var(--strip-size),
-        var(--filled-color) calc(2 * var(--strip-size))
-      ); 
-    }
+    &.cell-0 { background: var(--empty-bg); }
+    &.cell-1 { background: var(--border-bg); }
+    &.cell-2 { background: var(--filled-bg); }
+    &.cell-3 { background: var(--border-filled-bg); }
+    &.cell-4 { background: var(--empty-filled-bg); }
   }
 }

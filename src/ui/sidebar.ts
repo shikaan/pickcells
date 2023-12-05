@@ -21,13 +21,52 @@ export class Sidebar {
         </div>
 
         <div class="nes-field">
-          <label for="color">Color</label>
-          <input type="color" id="color" class="nes-progress" value="${initialState.color}">
+          <label for="brush">Color</label>
+          <input type="color" id="brush" class="nes-progress" value="${initialState.color}">
+          </div>
+          
+          <div class="nes-field">
+            <label>Brush</label>
+            <label>
+              <input type="radio" class="nes-radio" name="answer" checked />
+              <span>
+                <i class="brush-preview border"></i>  
+                Border
+              </span>
+            </label>
+            <label>
+              <input type="radio" class="nes-radio" name="answer" />
+              <span>
+                <i class="brush-preview filled"></i>
+                Filled
+              </span>
+            </label>
+            <label>
+              <input type="radio" class="nes-radio" name="answer" />
+              <span>
+                <i class="brush-preview filled-border"></i>
+                Filled-Border
+              </span>
+            </label>
+            <label>
+              <input type="radio" class="nes-radio" name="answer" />
+              <span>
+                <i class="brush-preview filled-empty"></i>
+                Filled-Empty
+              </span>
+            </label>
+            <label>
+              <input type="radio" class="nes-radio" name="answer" />
+              <span>
+                <i class="brush-preview empty"></i>
+                Eraser
+              </span>
+            </label>
         </div>
       </section>
 
       <footer>
-        <button class="nes-btn is-success" type="submit">Generate</button>
+        <button class="nes-btn is-primary" type="submit">Generate</button>
       </footer>
     </form>`)
 

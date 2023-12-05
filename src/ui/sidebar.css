@@ -23,6 +23,23 @@ form {
     #color {
       width: calc(100% - 8px);
     }
+
+    .nes-radio {
+      margin: 0;
+    }
+
+    i.brush-preview {
+      width: var(--text-size);
+      height: var(--text-size);
+      display: inline-block;
+      border: 2px solid #d3d3d3;
+
+      &.border { background: var(--border-bg); }
+      &.empty { background: var(--empty-bg); }
+      &.filled { background: var(--filled-bg); }
+      &.filled-border { background: var(--border-filled-bg); }
+      &.filled-empty { background: var(--empty-filled-bg); }
+    }
   }
 
   footer { 
