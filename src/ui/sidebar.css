@@ -24,22 +24,38 @@ form {
       width: calc(100% - 8px);
     }
 
-    .nes-radio {
-      margin: 0;
+    .brush-container {
+      --item-size: var(--size-5);
+      --grid-color: var(--color-default-shadow);
+
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--half-size);
+      
+      width: fit-content;
+      height: fit-content;
+      
+      input {
+        cursor: inherit;
+        appearance: none;
+        width: var(--item-size);
+        height: var(--item-size);
+        display: block;
+        border: var(--half-size) solid var(--color-black);
+        
+        &.border { background: var(--border-bg); }
+        &.empty { background: var(--empty-bg); }
+        &.filled { background: var(--filled-bg); }
+        &.filled-border { background: var(--border-filled-bg); }
+        &.filled-empty { background: var(--empty-filled-bg); }
+
+        &:checked {
+          border: var(--half-size) solid var(--color-primary-hover);
+        }
+      }
+      
     }
 
-    i.brush-preview {
-      width: var(--text-size);
-      height: var(--text-size);
-      display: inline-block;
-      border: 2px solid #d3d3d3;
-
-      &.border { background: var(--border-bg); }
-      &.empty { background: var(--empty-bg); }
-      &.filled { background: var(--filled-bg); }
-      &.filled-border { background: var(--border-filled-bg); }
-      &.filled-empty { background: var(--empty-filled-bg); }
-    }
   }
 
   footer { 

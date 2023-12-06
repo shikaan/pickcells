@@ -8,7 +8,15 @@ export enum MaskCell {
   EmptyOrFilled = 4
 }
 
-export const NUMBER_OF_STATES = Object.keys(MaskCell).length / 2;
+export const MaskCellValues = [
+  MaskCell.AlwaysBorder,
+  MaskCell.AlwaysFilled,
+  MaskCell.BorderOrFilled,
+  MaskCell.EmptyOrFilled,
+  MaskCell.AlwaysEmpty,
+]
+
+export const NUMBER_OF_STATES = MaskCellValues.length;
 
 export function makeMask(s: string): MaskCell {
   return Number.parseInt(s, NUMBER_OF_STATES) as MaskCell;

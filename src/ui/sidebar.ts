@@ -1,7 +1,15 @@
-import { MaskCell, makeMask } from '../lib/mask';
+import { MaskCell, MaskCellValues, makeMask } from '../lib/mask';
 import './sidebar.css';
 import { State, initialState } from "./state";
 import { template } from "./utils";
+
+const maskCellValueToClassName = {
+  [MaskCell.AlwaysBorder]: 'border',
+  [MaskCell.AlwaysFilled]: 'filled',
+  [MaskCell.BorderOrFilled]: 'filled-border',
+  [MaskCell.EmptyOrFilled]: 'filled-empty',
+  [MaskCell.AlwaysEmpty]: 'empty',
+}
 
 export class Sidebar {
   template = template(`
@@ -24,45 +32,15 @@ export class Sidebar {
         <div class="nes-field">
           <label for="color">Color</label>
           <input type="color" id="color" class="nes-progress" value="${initialState.color}">
+        </div>
+        
+        <div class="nes-field">
+          <label>Brush</label>
+          <div class="brush-container">
+            ${MaskCellValues.map((value, i) => `
+              <input type="radio" class="${maskCellValueToClassName[value]}" id="brush-${value}" name="brush" value="${value}" ${i == 0 ? 'checked' : ''} />
+        `).join('\n')}
           </div>
-          
-          <div class="nes-field">
-            <label>Brush</label>
-            <label>
-              <input type="radio" class="nes-radio" name="brush" value="${MaskCell.AlwaysBorder}" checked />
-              <span>
-                <i class="brush-preview border"></i>  
-                Border
-              </span>
-            </label>
-            <label>
-              <input type="radio" class="nes-radio" name="brush" value="${MaskCell.AlwaysFilled}" />
-              <span>
-                <i class="brush-preview filled"></i>
-                Filled
-              </span>
-            </label>
-            <label>
-              <input type="radio" class="nes-radio" name="brush" value="${MaskCell.BorderOrFilled}" />
-              <span>
-                <i class="brush-preview filled-border"></i>
-                Filled-Border
-              </span>
-            </label>
-            <label>
-              <input type="radio" class="nes-radio" name="brush" value="${MaskCell.EmptyOrFilled}" />
-              <span>
-                <i class="brush-preview filled-empty"></i>
-                Filled-Empty
-              </span>
-            </label>
-            <label>
-              <input type="radio" class="nes-radio" name="brush" value="${MaskCell.AlwaysEmpty}" />
-              <span>
-                <i class="brush-preview empty"></i>
-                Eraser
-              </span>
-            </label>
         </div>
       </section>
 
