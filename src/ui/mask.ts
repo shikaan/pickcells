@@ -3,6 +3,8 @@ import { MaskCell as MaskCellType, Mask as MaskType } from "../lib/mask";
 import { template } from "./utils";
 import { InitialState, State } from './state';
 
+const ZOOM_LEVELS = ['0.5', '0.75', '1', '1.25', '1.5']
+
 class MaskCell {
   template = template(`<div class="cell"></div>`)
 
@@ -49,20 +51,72 @@ export class Mask {
   template = template(`
     <div class="mask-container">
       <div class="mask"></div>
+      <div class="controls">
+        <button id="zoom-in" class="nes-btn">+</button>
+        <button id="zoom-out" class="nes-btn">-</button>
+      </div>
     </div>
   `)
 
   private instance!: HTMLElement;
   private cellsRefs: MaskCell[][] = [];
   private isDrawing: boolean = false;
+  private root: HTMLElement;
 
   constructor(
     private state: State<InitialState>,
   ) {
-    this.render();
-
+    this.root = this.render();
     state.onPropertyChange('rows', () => this.render());
     state.onPropertyChange('cols', () => this.render());
+  }
+
+  private updateZoomControls() {
+    const mask = this.root.querySelector('.mask') as HTMLElement;
+    const z = mask.style.getPropertyValue('--zoom');
+    const idx = ZOOM_LEVELS.findIndex(i => i === z);
+
+    const zoomout = this.root.querySelector('#zoom-out')!
+    if (idx === 0) {
+      zoomout.setAttribute('disabled', 'disabled')
+      zoomout.classList.add('is-disabled')
+    } else {
+      zoomout.removeAttribute('disabled')
+      zoomout.classList.remove('is-disabled')
+    }
+
+    const zoomin = this.root.querySelector('#zoom-in')!
+    if (idx === ZOOM_LEVELS.length - 1) {
+      zoomin.setAttribute('disabled', 'disabled')
+      zoomin.classList.add('is-disabled')
+    } else {
+      zoomin.classList.remove('is-disabled')
+      zoomin.removeAttribute('disabled')
+    }
+  }
+
+  private zoomIn() {
+    const mask = this.root.querySelector('.mask') as HTMLElement;
+    const z = mask.style.getPropertyValue('--zoom');
+    const idx = ZOOM_LEVELS.findIndex(i => i === z);
+
+    if (idx < ZOOM_LEVELS.length - 1) {
+      mask.style.setProperty('--zoom', ZOOM_LEVELS[idx + 1]);
+    }
+
+    this.updateZoomControls()
+  }
+
+  private zoomOut() {
+    const mask = this.root.querySelector('.mask') as HTMLElement;
+    const z = mask.style.getPropertyValue('--zoom');
+    const idx = ZOOM_LEVELS.findIndex(i => i === z);
+
+    if (idx > 0) {
+      mask.style.setProperty('--zoom', ZOOM_LEVELS[idx - 1]);
+    }
+
+    this.updateZoomControls()
   }
 
   render() {
@@ -95,10 +149,14 @@ export class Mask {
       if (!this.isDrawing) return;
       this.updateCurrentCell(e);
     })
+    container.querySelector('#zoom-in')!.addEventListener('click', this.zoomIn.bind(this))
+    container.querySelector('#zoom-out')!.addEventListener('click', this.zoomOut.bind(this))
 
     this.instance?.replaceWith(container);
     this.instance = container;
     this.updateMask();
+
+    this.root = container;
 
     return container;
   }
