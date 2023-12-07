@@ -64,24 +64,20 @@
   --color-filled: #088;
   --color-border: var(--color-black);
   --strip-size: var(--size);
-  
+
   --empty-bg: var(--color-empty);
   --filled-bg: var(--color-filled);
   --border-bg: var(--color-border);
-  --border-filled-bg: repeating-linear-gradient(
-    45deg,
-    var(--color-border),
-    var(--color-border) var(--strip-size),
-    var(--color-filled) var(--strip-size),
-    var(--color-filled) calc(2 * var(--strip-size))
-  );
-  --empty-filled-bg: repeating-linear-gradient(
-    45deg,
-    var(--color-empty),
-    var(--color-empty) var(--strip-size),
-    var(--color-filled) var(--strip-size),
-    var(--color-filled) calc(2 * var(--strip-size))
-  );
+  --border-filled-bg: repeating-linear-gradient(45deg,
+      var(--color-border),
+      var(--color-border) var(--strip-size),
+      var(--color-filled) var(--strip-size),
+      var(--color-filled) calc(2 * var(--strip-size)));
+  --empty-filled-bg: repeating-linear-gradient(45deg,
+      var(--color-empty),
+      var(--color-empty) var(--strip-size),
+      var(--color-filled) var(--strip-size),
+      var(--color-filled) calc(2 * var(--strip-size)));
 }
 
 body {
@@ -93,33 +89,24 @@ body {
   user-select: none;
 
   padding: var(--spacing);
-  display: grid; 
-  grid-auto-columns: 1fr; 
-  grid-template-columns: 1fr 1fr 1fr 1fr; 
-  grid-template-rows: 1fr; 
-  gap: var(--spacing); 
-  grid-template-areas: 
-    "side main main main"; 
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: var(--spacing);
+  grid-template-areas:
+    "side main main main";
   height: 100vh;
 }
 
-aside { grid-area: side; }
-main {
-  grid-area: main;
-  display: grid;
-  grid-template-rows: 2fr 1fr;
-  gap: var(--spacing);
+.layout-sidebar {
+  grid-area: 1/1/6/2;
+}
 
-  section {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    
-    #mask {
-      width: 100%;
-      display: grid;
-      place-items: center;
-      height: 100%;
-    }
-  }
+.layout-mask {
+  grid-area: 1/2/4/5;
+}
+
+.layout-preview {
+  grid-area: 4/2/6/5;
 }

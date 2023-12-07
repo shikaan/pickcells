@@ -3,7 +3,8 @@
   display: grid;
   place-items: center;
   height: 100%;
-  
+  overflow: hidden;
+
   .mask {
     --rows: 12;
     --cols: 12;
@@ -17,17 +18,34 @@
     width: fit-content;
     height: fit-content;
     border: var(--half-size) solid var(--grid-color);
-  
+
     .cell {
       height: var(--size);
       width: var(--size);
-  
-      &.cell-0 { background: var(--empty-bg); }
-      &.cell-1 { background: var(--border-bg); }
-      &.cell-2 { background: var(--filled-bg); }
-      &.cell-3 { background: var(--border-filled-bg); }
-      &.cell-4 { background: var(--empty-filled-bg); }
-      &.cell-disabled { background: var(--grid-color); }
+
+      &.cell-0 {
+        background: var(--empty-bg);
+      }
+
+      &.cell-1 {
+        background: var(--border-bg);
+      }
+
+      &.cell-2 {
+        background: var(--filled-bg);
+      }
+
+      &.cell-3 {
+        background: var(--border-filled-bg);
+      }
+
+      &.cell-4 {
+        background: var(--empty-filled-bg);
+      }
+
+      &.cell-disabled {
+        background: var(--grid-color);
+      }
     }
   }
 }

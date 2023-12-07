@@ -10,6 +10,6 @@ export function template(html: string) {
 }
 
 export function render<T extends HTMLElement>(element: T, parent: HTMLElement) {
-  parent.appendChild(element);
+  parent.replaceWith(element);
   return element;
 }

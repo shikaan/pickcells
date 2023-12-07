@@ -1,0 +1,18 @@
+.preview {
+  /* This is programmatically updated by javascript */
+  --sprite-width: 128px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, var(--sprite-width)));
+  justify-content: center;
+  margin: 0 auto;
+
+  gap: var(--half-size);
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+
+  .sprite {
+    display: block;
+  }
+}

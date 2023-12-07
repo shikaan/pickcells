@@ -53,8 +53,7 @@ export class Sidebar {
 
   constructor(
     private state: State<typeof initialState>,
-    private submit: () => void,
-    private updatePreview: () => void,
+    private submit: () => void
   ) {
     document.documentElement.style.setProperty("--color-filled", initialState.color);
     state.onPropertyChange('color', (_, newValue) => {
@@ -89,7 +88,6 @@ export class Sidebar {
     const element = e.target as HTMLInputElement;
     const color = element.value;
     this.state.set('color', color);
-    this.updatePreview()
   }
 
   onUpdateSize = (property: keyof typeof initialState) => (e: Event) => {

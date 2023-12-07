@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <aside class="nes-container"></aside>
-    <main>
-      <section class="nes-container with-title">
-        <p class="title">Mask</p>
-        <div id="mask"></div>
-      </section>
-      <section class="nes-container with-title">
-        <p class="title">Preview</p>
-        <div class="preview" id="preview"></div>
-      </section>
-    </main>
+    <aside class="nes-container layout-sidebar">
+      <slot id="sidebar"></slot>
+    </aside>
+    <section class="nes-container with-title layout-mask">
+      <p class="title">Mask</p>
+      <slot id="mask"></slot>
+    </section>
+    <section class="nes-container with-title layout-preview">
+      <p class="title">Preview</p>
+      <slot id="preview"></slot>
+    </section>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

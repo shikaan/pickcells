@@ -1,5 +1,4 @@
 import { Mask, MaskCell } from "../lib/mask";
-import { Sprite } from "../lib/sprite";
 
 export class State<T extends object> {
   private proxy: T;
@@ -48,15 +47,16 @@ export interface InitialState {
   cols: number;
   rows: number;
   mask: Mask;
-  sprite: Sprite;
   color: string;
   brush: MaskCell,
+  previewCount: number,
 }
-export const initialState = {
+
+export const initialState: InitialState = {
   cols: 8,
   rows: 8,
   mask: [] as Mask,
-  sprite: [] as Sprite,
   color: '#e76e55',
   brush: MaskCell.AlwaysBorder,
+  previewCount: 8,
 }

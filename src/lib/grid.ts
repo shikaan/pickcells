@@ -27,6 +27,19 @@ export const rows = <T>(g: Grid<T>) => {
   return g.length;
 }
 
+export const isEmpty = <T>(g: Grid<T>, emptyCell: T) => {
+  if (size(g) == 0) return true;
+
+  let empty = true;
+  forEachCell(g, (c) => {
+    if (c != emptyCell) {
+      empty = false;
+    }
+  });
+
+  return empty;
+}
+
 export const neighbors = <T>(g: Grid<T>, row: number, col: number) => {
   return [
     g[row]?.[col - 1],
