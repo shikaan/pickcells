@@ -19,14 +19,16 @@ export class Sidebar {
       </header>
 
       <section>
-        <div class="nes-field">
-          <label for="cols">Columns</label>
-          <input type="number" id="cols" class="nes-input" value="${initialState.cols}">
-        </div>
+        <div class="field-group--2">
+          <div class="nes-field">
+            <label for="cols">Columns</label>
+            <input type="number" id="cols" class="nes-input" min="4" max="32" value="${initialState.cols}">
+          </div>
 
-        <div class="nes-field">
-          <label for="rows">Rows</label>
-          <input type="number" id="rows" class="nes-input" value="${initialState.rows}">
+          <div class="nes-field">
+            <label for="rows">Rows</label>
+            <input type="number" id="rows" class="nes-input" min="4" max="32" value="${initialState.rows}">
+          </div>
         </div>
 
         <div class="nes-field">
@@ -41,6 +43,11 @@ export class Sidebar {
               <input type="radio" class="${maskCellValueToClassName[value]}" id="brush-${value}" name="brush" value="${value}" ${i == 0 ? 'checked' : ''} />
         `).join('\n')}
           </div>
+        </div>
+
+        <div class="nes-field">
+          <label for="count">Previews</label>
+          <input type="number" id="count" class="nes-input" min="1" max="100" value="${initialState.previewCount}">
         </div>
       </section>
 
@@ -67,6 +74,7 @@ export class Sidebar {
     inst.querySelector('#cols')?.addEventListener('change', this.onUpdateSize('cols'));
     inst.querySelector('#rows')?.addEventListener('change', this.onUpdateSize('rows'));
     inst.querySelector('#color')?.addEventListener('change', this.onUpdateColor);
+    inst.querySelector('#count')?.addEventListener('change', this.onUpdateCount);
     inst.querySelectorAll('input[name="brush"]')?.forEach(e => {
       e.addEventListener('change', this.onUpdateBrush);
     })
@@ -88,6 +96,12 @@ export class Sidebar {
     const element = e.target as HTMLInputElement;
     const color = element.value;
     this.state.set('color', color);
+  }
+
+  onUpdateCount = (e: Event) => {
+    const element = e.target as HTMLInputElement;
+    const count = element.value;
+    this.state.set('previewCount', Number.parseInt(count, 10));
   }
 
   onUpdateSize = (property: keyof typeof initialState) => (e: Event) => {

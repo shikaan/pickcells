@@ -1,20 +1,28 @@
 form {
   height: 100%;
 
-  display: grid; 
-  grid-auto-columns: 1fr; 
-  grid-template-columns: 1fr; 
-  grid-template-rows: min-content 1fr min-content; 
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr min-content;
   gap: 0px 0px;
-  grid-template-areas: 
+  grid-template-areas:
     "title"
     "fields"
     "submit";
 
-  header { grid-area: title; }
-  
-  section { 
+  header {
+    grid-area: title;
+  }
+
+  section {
     grid-area: fields;
+
+    .field-group--2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
 
     .nes-field {
       padding: var(--v-spacing) 0;
@@ -31,10 +39,10 @@ form {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: var(--half-size);
-      
+
       width: fit-content;
       height: fit-content;
-      
+
       input {
         cursor: inherit;
         appearance: none;
@@ -42,23 +50,37 @@ form {
         height: var(--item-size);
         display: block;
         border: var(--half-size) solid var(--color-black);
-        
-        &.border { background: var(--border-bg); }
-        &.empty { background: var(--empty-bg); }
-        &.filled { background: var(--filled-bg); }
-        &.filled-border { background: var(--border-filled-bg); }
-        &.filled-empty { background: var(--empty-filled-bg); }
+
+        &.border {
+          background: var(--border-bg);
+        }
+
+        &.empty {
+          background: var(--empty-bg);
+        }
+
+        &.filled {
+          background: var(--filled-bg);
+        }
+
+        &.filled-border {
+          background: var(--border-filled-bg);
+        }
+
+        &.filled-empty {
+          background: var(--empty-filled-bg);
+        }
 
         &:checked {
           border: var(--half-size) solid var(--color-primary-hover);
         }
       }
-      
+
     }
 
   }
 
-  footer { 
+  footer {
     grid-area: submit;
     padding: var(--v-spacing);
     text-align: center;

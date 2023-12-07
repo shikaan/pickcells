@@ -29,7 +29,7 @@ export class Preview {
     this.root.innerHTML = '';
     this.sprites = [];
 
-    const previews = 20 || this.state.get('previewCount');
+    const previews = this.state.get('previewCount');
     const mask = this.state.get('mask');
 
     if (isEmpty(mask, MaskCell.AlwaysEmpty)) {
