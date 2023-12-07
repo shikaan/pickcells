@@ -1,6 +1,6 @@
 .preview {
   /* This is programmatically updated by javascript */
-  --sprite-width: 128px;
+  --sprite-width: 999999px;
 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(64px, var(--sprite-width)));
@@ -14,5 +14,25 @@
 
   .sprite {
     display: block;
+  }
+
+  .empty-state {
+    --size: var(--size-5);
+
+    background-color: var(--color-warning-normal);
+    display: grid;
+    grid-template-columns: var(--size) 1fr;
+    gap: calc(var(--spacing) *2);
+    line-height: var(--size);
+
+    .icon {
+      line-height: calc(var(--size) - 4px);
+      display: block;
+      width: var(--size);
+      height: var(--size);
+      background: var(--color-white);
+      text-align: center;
+      color: var(--color-black);
+    }
   }
 }

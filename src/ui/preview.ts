@@ -12,7 +12,12 @@ const BORDER_COLOR = '#212529';
 export class Preview {
   template = template(`<div class="preview"></div>`)
   canvas = template('<canvas class="sprite"></canvas>')
-  emptyState = template('<p>Draw a mask and click "Generate" to create a sprite.</p>')
+  emptyState = template(`
+  <section class="nes-container empty-state">
+    <span class="icon with-border">!</span>
+    <p>Draw a mask and click "Generate" to start</p>
+  </section>
+  `)
 
   private readonly root: HTMLDivElement;
   private sprites: Sprite[];
