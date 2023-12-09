@@ -56,7 +56,7 @@ export class Sidebar {
       </footer>
     </form>`)
 
-  private instance!: HTMLElement;
+  private $root!: HTMLElement;
 
   constructor(
     private state: State<typeof initialState>,
@@ -80,37 +80,37 @@ export class Sidebar {
     })
     inst.addEventListener('submit', this.onSubmit);
 
-    this.instance?.replaceWith(inst);
-    this.instance = inst.firstChild as HTMLElement;
+    this.$root?.replaceWith(inst);
+    this.$root = inst.firstChild as HTMLElement;
 
     return inst;
   }
 
-  onUpdateBrush = (e: Event) => {
+  private onUpdateBrush = (e: Event) => {
     const element = e.target as HTMLInputElement;
     const brush = element.value;
     this.state.set('brush', makeMask(brush));
   }
 
-  onUpdateColor = (e: Event) => {
+  private onUpdateColor = (e: Event) => {
     const element = e.target as HTMLInputElement;
     const color = element.value;
     this.state.set('color', color);
   }
 
-  onUpdateCount = (e: Event) => {
+  private onUpdateCount = (e: Event) => {
     const element = e.target as HTMLInputElement;
     const count = element.value;
     this.state.set('previewCount', Number.parseInt(count, 10));
   }
 
-  onUpdateSize = (property: keyof typeof initialState) => (e: Event) => {
+  private onUpdateSize = (property: keyof typeof initialState) => (e: Event) => {
     const element = e.target as HTMLInputElement;
     const n = Number.parseInt(element.value, 10);
     this.state.set(property, n);
   }
 
-  onSubmit = (e: Event) => {
+  private onSubmit = (e: Event) => {
     e.preventDefault();
     this.submit();
   }

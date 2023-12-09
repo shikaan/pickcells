@@ -19,45 +19,45 @@ export class Preview {
   </section>
   `)
 
-  private readonly root: HTMLDivElement;
+  private readonly $root: HTMLDivElement;
   private sprites: Sprite[];
 
   constructor(
     private state: State<InitialState>
   ) {
     this.sprites = [];
-    this.root = this.template.create() as HTMLDivElement;
+    this.$root = this.template.create() as HTMLDivElement;
     this.state.onPropertyChange('color', this.refresh.bind(this))
   }
 
   render() {
-    this.root.innerHTML = '';
+    this.$root.innerHTML = '';
     this.sprites = [];
 
     const previews = this.state.get('previewCount');
     const mask = this.state.get('mask');
 
     if (isEmpty(mask, MaskCell.AlwaysEmpty)) {
-      this.root.appendChild(this.emptyState.create());
-      return this.root;
+      this.$root.appendChild(this.emptyState.create());
+      return this.$root;
     }
 
     for (let i = 0; i < previews; i++) {
       const sprite = fromMask(mask);
       this.sprites.push(sprite);
-      this.root.appendChild(this.drawSprite(sprite));
+      this.$root.appendChild(this.drawSprite(sprite));
     }
 
-    this.root.style.setProperty('--sprite-width', `${cols(this.sprites[0]) * PIXEL_SIZE}px`);
+    this.$root.style.setProperty('--sprite-width', `${cols(this.sprites[0]) * PIXEL_SIZE}px`);
 
-    return this.root;
+    return this.$root;
   }
 
   private refresh() {
-    this.root.innerHTML = '';
+    this.$root.innerHTML = '';
 
     for (const sprite of this.sprites) {
-      this.root.appendChild(this.drawSprite(sprite));
+      this.$root.appendChild(this.drawSprite(sprite));
     }
   }
 
