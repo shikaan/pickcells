@@ -1,4 +1,5 @@
 import { MaskCell, MaskCellValues, makeMask } from '../lib/mask';
+import { Dialog } from './dialogs';
 import './sidebar.css';
 import { State, initialState } from "./state";
 import { template } from "./utils";
@@ -15,7 +16,11 @@ export class Sidebar {
   template = template(`
     <form>
       <header>
-        <h1>Pixel Art Generator</h1>
+        <h1>PickCells</h1>
+        <menu class="links">
+          <a href="#info" class="nes-text">Help</a>|
+          <a href="#about" class="nes-text">About</a>
+        </menu>
       </header>
 
       <section>
@@ -56,16 +61,23 @@ export class Sidebar {
       </footer>
     </form>`)
 
+  info = template(`<div>This is an info box</div>`)
+  about = template(`<div>This is an about box</div>`)
+
   private $root!: HTMLElement;
 
   constructor(
     private state: State<typeof initialState>,
-    private submit: () => void
+    private submit: () => void,
+    dialog: Dialog
   ) {
     document.documentElement.style.setProperty("--color-filled", initialState.color);
     state.onPropertyChange('color', (_, newValue) => {
       document.documentElement.style.setProperty("--color-filled", newValue);
     });
+
+    dialog.register('info', this.info.create());
+    dialog.register('about', this.about.create());
   }
 
   render() {

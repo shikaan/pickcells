@@ -13,6 +13,13 @@ form {
 
   header {
     grid-area: title;
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--v-spacing) var(--h-spacing);
+    }
   }
 
   section {
