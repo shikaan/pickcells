@@ -30,9 +30,9 @@
       display: block;
       width: var(--size);
       height: var(--size);
-      background: var(--color-white);
+      background: var(--color-warning-shadow);
       text-align: center;
-      color: var(--color-black);
+      color: var(--color-white);
     }
   }
 }

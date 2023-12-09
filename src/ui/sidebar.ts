@@ -21,7 +21,7 @@ export class Sidebar {
       <section>
         <div class="field-group--2">
           <div class="nes-field">
-            <label for="cols">Columns</label>
+            <label for="cols">Cols</label>
             <input type="number" id="cols" class="nes-input" min="4" max="32" value="${initialState.cols}">
           </div>
 

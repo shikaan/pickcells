@@ -9,11 +9,12 @@
     --rows: 12;
     --cols: 12;
     --zoom: 1;
-    --size: calc(24px * var(--zoom));
-    --grid-color: #d3d3d3;
+    --control-size: calc(24px * var(--zoom));
+    --grid-color: var(--color-default-shadow);
+
     display: grid;
-    grid-template-rows: repeat(var(--rows), var(--size));
-    grid-template-columns: repeat(var(--cols), var(--size));
+    grid-template-rows: repeat(var(--rows), var(--control-size));
+    grid-template-columns: repeat(var(--cols), var(--control-size));
     gap: 2px;
     background-color: var(--grid-color);
     width: fit-content;
@@ -21,8 +22,8 @@
     border: var(--half-size) solid var(--grid-color);
 
     .cell {
-      height: var(--size);
-      width: var(--size);
+      height: var(--control-size);
+      width: var(--control-size);
 
       &.cell-0 {
         background: var(--empty-bg);
@@ -51,9 +52,16 @@
   }
 
   .controls {
+    --control-size: var(--size-5);
+
     position: absolute;
-    right: 16px;
-    width: 40px;
-    top: 8px;
+    top: var(--half-size);
+    right: var(--spacing);
+    width: var(--control-size);
+
+    & button {
+      margin-top: var(--size);
+      height: var(--control-size);
+    }
   }
 }
