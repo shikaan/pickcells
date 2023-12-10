@@ -1,3 +1,4 @@
+import { make } from "../lib/grid";
 import { Mask, MaskCell } from "../lib/mask";
 
 export class State<T extends object> {
@@ -8,6 +9,7 @@ export class State<T extends object> {
     this.propsToListeners[property].push(callback);
   }
 
+  // TODO: this is not immutable! For now though, it's just fine
   get<S extends keyof T>(property: S): T[S] {
     return this.proxy[property];
   }
@@ -56,7 +58,7 @@ export interface InitialState {
 export const initialState: InitialState = {
   cols: 8,
   rows: 8,
-  mask: [] as Mask,
+  mask: make(8, 8, MaskCell.AlwaysEmpty),
   color: '#e76e55',
   tool: MaskCell.AlwaysBorder,
   previewCount: 8,

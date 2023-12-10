@@ -1,7 +1,20 @@
 export type Grid<T> = T[][];
 
+export const make = <T>(rows: number, cols: number, empty: T): Grid<T> => {
+  const result = []
+
+  for (let row = 0; row < rows; row++) {
+    result[row] = [] as T[];
+    for (let col = 0; col < cols; col++) {
+      result[row][col] = empty;
+    }
+  }
+
+  return result
+}
+
 export const size = <T>(g: Grid<T>) => {
-  return g[0].length * g.length;
+  return (g[0]?.length ?? 0) * g.length;
 }
 
 export const fromString = <T>(s: string, parser: (char: string) => T): Grid<T> => {

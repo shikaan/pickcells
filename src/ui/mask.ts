@@ -1,7 +1,8 @@
 import './mask.css'
-import { MaskCell as MaskCellType, Mask as MaskType } from "../lib/mask";
-import { template } from "./utils";
+import { MaskCell as MaskCellType } from "../lib/mask";
+import { template, toNumber } from "./utils";
 import { InitialState, State } from './state';
+import { forEachCell, make } from '../lib/grid';
 
 const ZOOM_LEVELS = ['0.5', '0.75', '1', '1.25', '1.5'];
 const DEFAULT_ZOOM_LEVEL = ZOOM_LEVELS[2];
@@ -9,12 +10,12 @@ const DEFAULT_ZOOM_LEVEL = ZOOM_LEVELS[2];
 class MaskCell {
   template = template(`<div class="cell"></div>`)
 
-  private instance!: HTMLElement;
-  private type = MaskCellType.AlwaysEmpty;
+  private $root!: HTMLElement;
 
   constructor(
     private x: number,
     private y: number,
+    private type = MaskCellType.AlwaysEmpty,
     private disabled: boolean = false,
   ) { }
 
@@ -23,7 +24,7 @@ class MaskCell {
 
     const oldType = this.type;
     this.type = type;
-    this.instance.classList.replace(`cell-${oldType}`, `cell-${type}`);
+    this.$root.classList.replace(`cell-${oldType}`, `cell-${type}`);
   }
 
   render() {
@@ -37,8 +38,8 @@ class MaskCell {
       inst.classList.add(`cell-disabled`);
     }
 
-    this.instance?.replaceWith(inst);
-    this.instance = inst;
+    this.$root?.replaceWith(inst);
+    this.$root = inst;
 
     return inst;
   }
@@ -70,9 +71,8 @@ export class Mask {
   constructor(
     private state: State<InitialState>,
   ) {
-    this.render();
-    state.onPropertyChange('rows', () => this.render());
-    state.onPropertyChange('cols', () => this.render());
+    state.onPropertyChange('rows', this.onRowChange);
+    state.onPropertyChange('cols', this.onColumnChange);
   }
 
   render() {
@@ -87,20 +87,15 @@ export class Mask {
     mask.style.setProperty('--rows', rows.toString());
     mask.style.setProperty('--cols', cols.toString());
 
-    this.cellsRefs = []
-    for (let row = 0; row < rows; row++) {
-      this.cellsRefs[row] = [];
-      for (let col = 0; col < cols; col++) {
-        const cell = new MaskCell(col, row, col >= Math.ceil(cols / 2));
-        this.cellsRefs[row][col] = cell;
-        mask.appendChild(cell.render());
-      }
-    }
+    this.cellsRefs = make(rows, cols, new MaskCell(0, 0, 0, false));
 
-    mask.addEventListener('click', (e) => {
-      this.updateCurrentCell(e);
-      this.updateMask();
+    forEachCell(this.state.get('mask'), (cell, row, col) => {
+      const maskCell = new MaskCell(col, row, cell, col >= Math.ceil(cols / 2));
+      this.cellsRefs[row][col] = maskCell;
+      mask.appendChild(maskCell.render());
     })
+
+    mask.addEventListener('click', this.updateCurrentCell);
     mask.addEventListener('pointerdown', this.startDrawing);
     container.addEventListener('pointerleave', this.endDrawing);
     container.addEventListener('pointerup', this.endDrawing);
@@ -118,45 +113,60 @@ export class Mask {
     this.$zoomIn = zoomIn;
     this.$zoomOut = zoomOut;
 
-    this.updateMask();
-
     return container;
-  }
-
-  private updateMask() {
-    const cols = this.state.get('cols');
-    const rows = this.state.get('rows');
-    const mask: MaskType = [];
-
-    for (let row = 0; row < rows; row++) {
-      mask[row] = [];
-      for (let col = 0; col < cols; col++) {
-        mask[row][col] = this.cellsRefs[row][col].getType();
-      }
-    }
-
-    this.state.set('mask', mask);
   }
 
   private updateCurrentCell = (e: Event) => {
     const el = e.target as HTMLElement;
-    const col = el.getAttribute('data-col');
-    const row = el.getAttribute('data-row');
-    if (!col || !row) return;
+    let col = toNumber(el.getAttribute('data-col') ?? '');
+    let row = toNumber(el.getAttribute('data-row') ?? '');
+    if (Number.isNaN(col) || Number.isNaN(row)) return;
 
-    // @ts-expect-error
     const cell = this.cellsRefs[row][col];
+    const cellType = this.state.get('tool');
+    const mask = this.state.get('mask');
 
-    cell.replaceCellType(this.state.get('tool'));
+    cell.replaceCellType(cellType);
+    mask[row][col] = cellType;
+
+    this.state.set('mask', mask)
   }
 
   private endDrawing = () => {
     this.isDrawing = false;
-    this.updateMask();
   }
 
   private startDrawing = () => {
     this.isDrawing = true;
+  }
+
+  private onColumnChange = (oldValue: number, newValue: number) => {
+    const mask = this.state.get('mask');
+    const diff = newValue - oldValue;
+
+    if (diff >= 0) {
+      const delta = new Array(diff).fill(MaskCellType.AlwaysEmpty)
+      this.state.set('mask', mask.map(row => [...row, ...delta]))
+    } else {
+      this.state.set('mask', mask.map(row => row.slice(0, diff)))
+    }
+
+    this.render()
+  }
+
+  private onRowChange = (oldValue: number, newValue: number) => {
+    const mask = this.state.get('mask');
+    const diff = newValue - oldValue;
+
+    if (diff >= 0) {
+      const emptyRow = new Array(this.state.get('cols')).fill(MaskCellType.AlwaysEmpty);
+      const delta = new Array(diff).fill(emptyRow)
+      this.state.set('mask', [...mask, ...delta])
+    } else {
+      this.state.set('mask', mask.slice(0, diff))
+    }
+
+    this.render()
   }
 
   private setButtonEnabled($el: HTMLButtonElement, value = true) {
