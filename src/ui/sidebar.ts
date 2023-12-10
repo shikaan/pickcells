@@ -3,8 +3,8 @@ import { AboutDialog } from './about';
 import { Dialog } from './dialogs';
 import { HelpDialog } from './help';
 import './sidebar.css';
-import { State, initialState } from "./state";
-import { template } from "./utils";
+import { InitialState, State, initialState } from "./state";
+import { identity, template, toNumber } from "./utils";
 
 const maskCellValueToClassName = {
   [MaskCell.AlwaysBorder]: 'border',
@@ -68,6 +68,13 @@ export class Sidebar {
           <label for="count">Results</label>
           <input type="number" id="count" class="nes-input" min="1" max="100" value="${initialState.previewCount}">
         </div>
+
+        <div class="nes-field">
+          <label for="outline">
+            <input type="checkbox" id="outline" class="nes-checkbox" ${initialState.drawBorders ? 'checked' : ''}>
+            <span>Outline</span>
+          </label>
+        </div>
       </section>
 
       <footer>
@@ -94,12 +101,14 @@ export class Sidebar {
   render() {
     const inst = this.template.create()!;
 
-    inst.querySelector('#cols')?.addEventListener('change', this.onUpdateSize('cols'));
-    inst.querySelector('#rows')?.addEventListener('change', this.onUpdateSize('rows'));
-    inst.querySelector('#color')?.addEventListener('change', this.onUpdateColor);
-    inst.querySelector('#count')?.addEventListener('change', this.onUpdateCount);
+    inst.querySelector('#cols')?.addEventListener('change', this.setStateFromTargetValue('cols', toNumber));
+    inst.querySelector('#rows')?.addEventListener('change', this.setStateFromTargetValue('rows', toNumber));
+    inst.querySelector('#color')?.addEventListener('change', this.setStateFromTargetValue('color', identity));
+    inst.querySelector('#count')?.addEventListener('change', this.setStateFromTargetValue('previewCount', toNumber));
+    inst.querySelector('#outline')?.addEventListener('change', this.setStateFromTargetChecked('drawBorders'));
+
     inst.querySelectorAll('input[name="tool"]')?.forEach(e => {
-      e.addEventListener('change', this.onUpdatetool);
+      e.addEventListener('change', this.setStateFromTargetValue('tool', makeMask));
     })
     inst.addEventListener('submit', this.onSubmit);
 
@@ -109,28 +118,14 @@ export class Sidebar {
     return inst;
   }
 
-  private onUpdatetool = (e: Event) => {
+  private setStateFromTargetValue = <S extends keyof InitialState>(property: S, transform: (x: string) => InitialState[S]) => (e: Event) => {
     const element = e.target as HTMLInputElement;
-    const tool = element.value;
-    this.state.set('tool', makeMask(tool));
+    this.state.set(property, transform(element.value));
   }
 
-  private onUpdateColor = (e: Event) => {
+  private setStateFromTargetChecked = <S extends 'drawBorders'>(property: S) => (e: Event) => {
     const element = e.target as HTMLInputElement;
-    const color = element.value;
-    this.state.set('color', color);
-  }
-
-  private onUpdateCount = (e: Event) => {
-    const element = e.target as HTMLInputElement;
-    const count = element.value;
-    this.state.set('previewCount', Number.parseInt(count, 10));
-  }
-
-  private onUpdateSize = (property: keyof typeof initialState) => (e: Event) => {
-    const element = e.target as HTMLInputElement;
-    const n = Number.parseInt(element.value, 10);
-    this.state.set(property, n);
+    this.state.set(property, element.checked);
   }
 
   private onSubmit = (e: Event) => {

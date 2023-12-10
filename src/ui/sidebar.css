@@ -53,6 +53,11 @@
         width: calc(100% - 8px);
       }
 
+      .nes-checkbox {
+        /* To align it with input fields */
+        margin-left: calc(var(--size-2) - var(--half-size));
+      }
+
       .tool-container {
         --item-size: var(--size-5);
         --grid-color: var(--color-default-shadow);

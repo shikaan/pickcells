@@ -13,7 +13,13 @@ export function makeSpriteCell(s: string): SpriteCell {
   return Number.parseInt(s, 3) as SpriteCell;
 }
 
-export const fromMask = (mask: Mask): Sprite => {
+interface Options {
+  mirrorX?: true,
+  mirrorY?: false,
+  drawBorders: boolean
+}
+
+export const fromMask = (mask: Mask, options: Options): Sprite => {
   const borderless: Grid<SpriteCell> = [];
 
   // Fill the grid based on mask values
@@ -41,6 +47,8 @@ export const fromMask = (mask: Mask): Sprite => {
       borderless[row][col] = SpriteCell.Empty;
     }
   });
+
+  if (!options.drawBorders) return borderless
 
   const result: Grid<SpriteCell> = [];
 

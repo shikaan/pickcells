@@ -43,7 +43,7 @@ export class Preview {
     }
 
     for (let i = 0; i < previews; i++) {
-      const sprite = fromMask(mask);
+      const sprite = fromMask(mask, { drawBorders: this.state.get('drawBorders') });
       this.sprites.push(sprite);
       this.$root.appendChild(this.drawSprite(sprite));
     }

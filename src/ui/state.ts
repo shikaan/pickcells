@@ -50,6 +50,7 @@ export interface InitialState {
   color: string;
   tool: MaskCell,
   previewCount: number,
+  drawBorders: boolean,
 }
 
 export const initialState: InitialState = {
@@ -59,4 +60,5 @@ export const initialState: InitialState = {
   color: '#e76e55',
   tool: MaskCell.AlwaysBorder,
   previewCount: 8,
+  drawBorders: true,
 }

@@ -13,3 +13,6 @@ export function render<T extends HTMLElement>(element: T, parent: HTMLElement) {
   parent.replaceWith(element);
   return element;
 }
+
+export const identity = (x: string) => x
+export const toNumber = (x: string) => Number.parseInt(x, 10)
