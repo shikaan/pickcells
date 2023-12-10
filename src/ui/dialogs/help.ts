@@ -9,7 +9,7 @@ export class HelpDialog {
         <button class="nes-btn is-error close">X</button>
       </header>
       <section>
-        <p><b>PickCells</b> is a tool for creating pixel art through procedural generation.</p>
+        <p><b>PickCells</b> is an app for creating pixel art through procedural generation.</p>
         
         <h4>Getting Started</h4>
         <p>Select a tool, draw on the grid, and hit <i>Generate</i>.</p> 
