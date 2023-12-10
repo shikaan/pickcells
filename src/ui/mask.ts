@@ -147,7 +147,7 @@ export class Mask {
     // @ts-expect-error
     const cell = this.cellsRefs[row][col];
 
-    cell.replaceCellType(this.state.get('brush'));
+    cell.replaceCellType(this.state.get('tool'));
   }
 
   private endDrawing = () => {

@@ -58,6 +58,9 @@
   --size-3: calc(var(--size) * 3);
   --size-4: calc(var(--size) * 4);
   --size-5: calc(var(--size) * 5);
+  --size-6: calc(var(--size) * 6);
+  --size-7: calc(var(--size) * 7);
+  --size-8: calc(var(--size) * 8);
 
   --spacing: var(--size-2);
   --v-spacing: var(--size-2);

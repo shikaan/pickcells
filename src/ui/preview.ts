@@ -15,7 +15,7 @@ export class Preview {
   emptyState = template(`
   <section class="nes-container empty-state">
     <span class="icon with-border">!</span>
-    <p>Draw a mask and click "Generate" to start</p>
+    <p>Draw a mask and click <em>Generate</em> to start</p>
   </section>
   `)
 

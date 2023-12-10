@@ -48,7 +48,7 @@ export interface InitialState {
   rows: number;
   mask: Mask;
   color: string;
-  brush: MaskCell,
+  tool: MaskCell,
   previewCount: number,
 }
 
@@ -57,6 +57,6 @@ export const initialState: InitialState = {
   rows: 8,
   mask: [] as Mask,
   color: '#e76e55',
-  brush: MaskCell.AlwaysBorder,
+  tool: MaskCell.AlwaysBorder,
   previewCount: 8,
 }

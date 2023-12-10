@@ -44,6 +44,7 @@ export class Dialog {
         this.close();
       }
     })
+    dialog.querySelector('header .close')?.addEventListener('click', this.close);
 
     this.$root.appendChild(dialog);
     this.$contents[id] = dialog;

@@ -1,5 +1,7 @@
 import { MaskCell, MaskCellValues, makeMask } from '../lib/mask';
+import { AboutDialog } from './about';
 import { Dialog } from './dialogs';
+import { HelpDialog } from './help';
 import './sidebar.css';
 import { State, initialState } from "./state";
 import { template } from "./utils";
@@ -12,13 +14,25 @@ const maskCellValueToClassName = {
   [MaskCell.AlwaysEmpty]: 'empty',
 }
 
+const maskCellValueToToolName = {
+  [MaskCell.AlwaysBorder]: 'Pencil',
+  [MaskCell.AlwaysFilled]: 'Color',
+  [MaskCell.BorderOrFilled]: 'Pencil-Color',
+  [MaskCell.EmptyOrFilled]: 'Empty-Color',
+  [MaskCell.AlwaysEmpty]: 'Eraser',
+}
+
 export class Sidebar {
   template = template(`
     <form>
       <header>
-        <h1>PickCells</h1>
+        <span>
+          <img src="logo.png"/>
+          <h1>PickCells</h1>
+        </span>
         <menu class="links">
-          <a href="#info" class="nes-text">Help</a>|
+          <a href="#info" class="nes-text">Help</a>&nbsp;|&nbsp;
+          <a href="#samples" class="nes-text">Samples</a>&nbsp;|&nbsp;
           <a href="#about" class="nes-text">About</a>
         </menu>
       </header>
@@ -42,16 +56,16 @@ export class Sidebar {
         </div>
         
         <div class="nes-field">
-          <label>Brush</label>
-          <div class="brush-container">
+          <label>Tools</label>
+          <div class="tool-container">
             ${MaskCellValues.map((value, i) => `
-              <input type="radio" class="${maskCellValueToClassName[value]}" id="brush-${value}" name="brush" value="${value}" ${i == 0 ? 'checked' : ''} />
+              <input title="${maskCellValueToToolName[value]}" type="radio" class="${maskCellValueToClassName[value]}" id="tool-${value}" name="tool" value="${value}" ${i == 0 ? 'checked' : ''} />
         `).join('\n')}
           </div>
         </div>
 
         <div class="nes-field">
-          <label for="count">Previews</label>
+          <label for="count">Results</label>
           <input type="number" id="count" class="nes-input" min="1" max="100" value="${initialState.previewCount}">
         </div>
       </section>
@@ -60,9 +74,6 @@ export class Sidebar {
         <button class="nes-btn is-primary" type="submit">Generate</button>
       </footer>
     </form>`)
-
-  info = template(`<div>This is an info box</div>`)
-  about = template(`<div>This is an about box</div>`)
 
   private $root!: HTMLElement;
 
@@ -76,8 +87,8 @@ export class Sidebar {
       document.documentElement.style.setProperty("--color-filled", newValue);
     });
 
-    dialog.register('info', this.info.create());
-    dialog.register('about', this.about.create());
+    dialog.register('info', new HelpDialog().render());
+    dialog.register('about', new AboutDialog().render());
   }
 
   render() {
@@ -87,8 +98,8 @@ export class Sidebar {
     inst.querySelector('#rows')?.addEventListener('change', this.onUpdateSize('rows'));
     inst.querySelector('#color')?.addEventListener('change', this.onUpdateColor);
     inst.querySelector('#count')?.addEventListener('change', this.onUpdateCount);
-    inst.querySelectorAll('input[name="brush"]')?.forEach(e => {
-      e.addEventListener('change', this.onUpdateBrush);
+    inst.querySelectorAll('input[name="tool"]')?.forEach(e => {
+      e.addEventListener('change', this.onUpdatetool);
     })
     inst.addEventListener('submit', this.onSubmit);
 
@@ -98,10 +109,10 @@ export class Sidebar {
     return inst;
   }
 
-  private onUpdateBrush = (e: Event) => {
+  private onUpdatetool = (e: Event) => {
     const element = e.target as HTMLInputElement;
-    const brush = element.value;
-    this.state.set('brush', makeMask(brush));
+    const tool = element.value;
+    this.state.set('tool', makeMask(tool));
   }
 
   private onUpdateColor = (e: Event) => {
