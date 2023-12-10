@@ -73,6 +73,7 @@ export class Mask {
   ) {
     state.onPropertyChange('rows', this.onRowChange);
     state.onPropertyChange('cols', this.onColumnChange);
+    state.onPropertyChange('mask', () => this.render());
   }
 
   render() {
@@ -150,8 +151,6 @@ export class Mask {
     } else {
       this.state.set('mask', mask.map(row => row.slice(0, diff)))
     }
-
-    this.render()
   }
 
   private onRowChange = (oldValue: number, newValue: number) => {
@@ -159,14 +158,15 @@ export class Mask {
     const diff = newValue - oldValue;
 
     if (diff >= 0) {
-      const emptyRow = new Array(this.state.get('cols')).fill(MaskCellType.AlwaysEmpty);
-      const delta = new Array(diff).fill(emptyRow)
-      this.state.set('mask', [...mask, ...delta])
+      const cols = this.state.get('cols');
+      for (let i = 0; i < diff; i++) {
+        const emptyRow = new Array(cols).fill(MaskCellType.AlwaysEmpty);
+        mask.push(emptyRow)
+      }
+      this.state.set('mask', mask)
     } else {
       this.state.set('mask', mask.slice(0, diff))
     }
-
-    this.render()
   }
 
   private setButtonEnabled($el: HTMLButtonElement, value = true) {

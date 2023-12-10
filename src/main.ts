@@ -3,7 +3,7 @@ import { render } from './ui/utils';
 import { Sidebar } from './ui/sidebar';
 import { InitialState, State, initialState } from './ui/state';
 import { Preview } from './ui/preview';
-import { Dialog } from './ui/dialogs';
+import { Dialog } from './ui/dialogs/dialogs';
 
 const state = new State<InitialState>(initialState);
 const dialog = new Dialog();

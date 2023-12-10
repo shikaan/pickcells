@@ -133,3 +133,28 @@ body {
   border-style: solid;
   border-width: 4px;
 }
+
+* {
+  --scrollbar-foreground: var(--color-black);
+  --scrollbar-background: var(--color-disabled-normal);
+  --scrollbar-border: var(--color-default-normal);
+
+  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
+}
+
+*::-webkit-scrollbar {
+  width: var(--size-3);
+  height: var(--size-3);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-foreground);
+  border-left: var(--half-size) solid var(--scrollbar-border);
+  border-right: var(--half-size) solid var(--scrollbar-border);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-background);
+  border-left: var(--half-size) solid var(--scrollbar-border);
+  border-right: var(--half-size) solid var(--scrollbar-border);
+}

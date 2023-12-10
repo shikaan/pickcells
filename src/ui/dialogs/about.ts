@@ -1,5 +1,5 @@
 import './about.css'
-import { template } from "./utils";
+import { template } from "../utils";
 
 export class AboutDialog {
   template = template(`
@@ -18,7 +18,7 @@ export class AboutDialog {
         <h3>Credits</h3>
         <ul class="nes-list is-disc">
           <li><a href="https://github.com/nostalgic-css/NES.css">NES.css</a> for the user interface</li>
-          <li>Based on <a href="http://web.archive.org/web/20080228054410/http://www.davebollinger.com/works/pixelspaceships/">Dave Bollinger's Pixel Spaceships</a></li>
+          <li>Inspired by <a href="http://web.archive.org/web/20080228054410/http://www.davebollinger.com/works/pixelspaceships/">Dave Bollinger's Pixel Spaceships</a></li>
         </ul>
       </section>
     </span>

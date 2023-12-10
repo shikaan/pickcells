@@ -1,5 +1,5 @@
 import './help.css'
-import { template } from "./utils";
+import { template } from "../utils";
 
 export class HelpDialog {
   template = template(`

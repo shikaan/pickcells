@@ -1,10 +1,11 @@
 import { MaskCell, MaskCellValues, makeMask } from '../lib/mask';
-import { AboutDialog } from './about';
-import { Dialog } from './dialogs';
-import { HelpDialog } from './help';
+import { AboutDialog } from './dialogs/about';
+import { Dialog } from './dialogs/dialogs';
+import { HelpDialog } from './dialogs/help';
 import './sidebar.css';
 import { InitialState, State, initialState } from "./state";
 import { identity, template, toNumber } from "./utils";
+import { ExamplesDialog } from './dialogs/examples';
 
 const maskCellValueToClassName = {
   [MaskCell.AlwaysBorder]: 'border',
@@ -32,7 +33,7 @@ export class Sidebar {
         </span>
         <menu class="links">
           <a href="#info" class="nes-text">Help</a>&nbsp;|&nbsp;
-          <a href="#samples" class="nes-text">Samples</a>&nbsp;|&nbsp;
+          <a href="#examples" class="nes-text">Examples</a>&nbsp;|&nbsp;
           <a href="#about" class="nes-text">About</a>
         </menu>
       </header>
@@ -83,6 +84,8 @@ export class Sidebar {
     </form>`)
 
   private $root!: HTMLElement;
+  $cols: any;
+  $rows: any;
 
   constructor(
     private state: State<typeof initialState>,
@@ -90,19 +93,30 @@ export class Sidebar {
     dialog: Dialog
   ) {
     document.documentElement.style.setProperty("--color-filled", initialState.color);
+
     state.onPropertyChange('color', (_, newValue) => {
       document.documentElement.style.setProperty("--color-filled", newValue);
     });
+    state.onPropertyChange('cols', (_, value) => {
+      this.$cols?.setAttribute('value', value.toString())
+    })
+    state.onPropertyChange('rows', (_, value) => {
+      this.$rows?.setAttribute('value', value.toString())
+    })
 
     dialog.register('info', new HelpDialog().render());
     dialog.register('about', new AboutDialog().render());
+    dialog.register('examples', new ExamplesDialog(state, () => dialog.close()).render());
   }
 
   render() {
     const inst = this.template.create()!;
 
-    inst.querySelector('#cols')?.addEventListener('change', this.setStateFromTargetValue('cols', toNumber));
-    inst.querySelector('#rows')?.addEventListener('change', this.setStateFromTargetValue('rows', toNumber));
+    this.$cols = inst.querySelector('#cols');
+    this.$rows = inst.querySelector('#rows');
+
+    this.$cols?.addEventListener('change', this.setStateFromTargetValue('cols', toNumber));
+    this.$rows?.addEventListener('change', this.setStateFromTargetValue('rows', toNumber));
     inst.querySelector('#color')?.addEventListener('change', this.setStateFromTargetValue('color', identity));
     inst.querySelector('#count')?.addEventListener('change', this.setStateFromTargetValue('previewCount', toNumber));
     inst.querySelector('#outline')?.addEventListener('change', this.setStateFromTargetChecked('drawBorders'));
@@ -113,7 +127,7 @@ export class Sidebar {
     inst.addEventListener('submit', this.onSubmit);
 
     this.$root?.replaceWith(inst);
-    this.$root = inst.firstChild as HTMLElement;
+    this.$root = inst;
 
     return inst;
   }

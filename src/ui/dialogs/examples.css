@@ -1,0 +1,23 @@
+dialog#dialog-examples {
+  section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size);
+
+    .example {
+      height: 320px;
+
+      img {
+        height: calc(var(--size) * 16);
+        padding: var(--size-2);
+      }
+
+      .description {
+        font-size: smaller;
+      }
+    }
+
+    max-height: 600px;
+    overflow: auto;
+  }
+}

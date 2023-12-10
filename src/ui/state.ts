@@ -9,13 +9,12 @@ export class State<T extends object> {
     this.propsToListeners[property].push(callback);
   }
 
-  // TODO: this is not immutable! For now though, it's just fine
   get<S extends keyof T>(property: S): T[S] {
-    return this.proxy[property];
+    return structuredClone(this.proxy[property]);
   }
 
   set<S extends keyof T>(property: S, newValue: T[S]) {
-    this.proxy[property] = newValue;
+    this.proxy[property] = structuredClone(newValue);
   }
 
   constructor(init: T) {
@@ -40,7 +39,7 @@ export class State<T extends object> {
 
   private flush<S extends keyof T>(property: S, oldValue: T[S], newValue: T[S]) {
     for (const callback of this.propsToListeners[property]) {
-      queueMicrotask(() => callback(oldValue, newValue));
+      callback(oldValue, newValue);
     }
   }
 }

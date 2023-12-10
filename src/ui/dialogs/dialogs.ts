@@ -1,5 +1,5 @@
 import "./dialogs.css";
-import { template } from "./utils";
+import { template } from "../utils";
 
 export class Dialog {
   private static isInitialised = false;
@@ -36,6 +36,7 @@ export class Dialog {
     }
     const dialog = this.dialog.create() as HTMLDialogElement;
 
+    dialog.id = `dialog-${id}`
     dialog.appendChild($content);
     dialog.addEventListener('close', this.close);
     dialog.addEventListener('cancel', this.close);

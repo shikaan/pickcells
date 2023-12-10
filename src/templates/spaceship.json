@@ -1,0 +1,24 @@
+{
+    "meta": {
+        "version": "1.0.0",
+        "name": "Spaceship",
+        "preview": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAtxJREFUeF7tnctRxDAQBe1QOHCgigjIgIjJgAio4sCBUNgigenDq1eSd5vr7Mjy6/lI8i4+j83/np5f/pIp/v58n4l/23fryf3fvADaIQDjC0AAVQUsQVV5eXABsEbVTwigKi8PLgDWqPqJ5QBolfP5/hoJ8PbxNfqv3icIYPFGTQACmI8aLEFRBWZnewBrVP2EAKry8uACYI2qnxBAVV4+TqYmS+t4mn46fnufUF+GphEuAAqx8Dw/jVCaXjq+GQBHCQIwAygGRrs9YPFhnQAEMB83uwravMZHBfg4jtWrpLgErV7nCwC+uZZGWCow+afzS/cJZgA88qQeJAAKcbCbAeFON9TfJkwpngpM/maAGUAxMtvTZShdPc0QivD0+pdvwqkA5C+A8jfbBBBuxEhAS1D5LEgApIAARgVswuFOl+KPSqAA7h1Aus6nCKJlIvlTBKfjp/6UIXgaKoDsiZ0AwuNmMyA8K0oFTP3NADNg/pFcGmE24cURJgABRDvl+jKUIpTs7X0AXZ/sNL/lTZhugOx0g+RPPYb8yU7zE0D4PEIA5X0ACUx2M6B8GCcAM6D7rwTSCCN/mzApBHaqsTT89gDS42YSILXvDoDuj+Z/CoAkzOwCKO8DCI8ABEAxMtspgmj0dhOm69P87QGkYGgXgCUoCyGKIBr97ksQCbRaAAJE9vT+yD/uAXQBAczPxAUQHoVQgFGACkAAVIXX2imCzYAyHwGUBabhBUAKle2XB0D6pDX06uPXV0FXF6g9fwGUH/pTCROAALKfALVLRHt8M8AMMAPG18U++jKxXoLoAvS1Ffr6NfkTYJpfaqdVSnp/5B//QIMuIID5hdICCP93NAUYBagABJC9K9IeAK8CpBS1CUMIkYBU48hfAAIYFUgDjPyxCac1lvwpQ8g/tZNA6fjkLwBfZzv/Bo0iKLWbAfB/R1OByV8AAqAY6dptwl19cXQBoETdDzw6gBtG4qregVsPcwAAAABJRU5ErkJggg==",
+        "description": "Dave Bollinger's example"
+    },
+    "mask": [
+        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 0, 4, 1, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 4, 4, 1, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 4, 4, 1, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 4, 4, 4, 1, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 4, 4, 4, 3, 3, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 4, 4, 4, 3, 3, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 4, 4, 4, 3, 3, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 4, 4, 4, 4, 1, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    "cols": 12,
+    "rows": 12
+}

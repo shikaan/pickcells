@@ -1,0 +1,28 @@
+{
+    "meta": {
+        "version": "1.0.0",
+        "name": "Red",
+        "preview": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAABLNJREFUeF7tncFxVEEMRP+GwZGDD1QRARkQAGk4GKdBAGRABK7ygQNHwjC1CcxzVaOShJ+vWmmk7p6e+ev1+nYN//n48Ol1eIvH9n7/erlN7n90c3fgFECtfBRALb6XDhACrAOEAEK6DlCLrw6Q4qsDpAie83WAWnx1gBRfHSBFsNkBthNYCz9Xr36KKD8CFACTfHqFAsjwW5+tANZTmA2gADL81mcrgPUUZgMogAy/9dkKYD2F2QDjBeBjXkZwmp0KJH4fQAGkFGb5CiDDb322AlhPYTaAAsjwW5+tANZTmA2gADL81mcrgPUUZgMogAy/9dkKYD2F2QAKIMNvfbYCWE9hNoACyPBbn60A1lOYDaAAMvzWZyuA9RRmA5QLIP11LzWY1s/g68+uxofq4+cBUoKogbR+P4VZB9X4UH0FkPEXZxNB6Qah+gogpjArQAQpgAzf8dkKYPmXQKUKUwAK4HgMewSkW2x4frsDkMLSBimf+KH+KL87Xj0/1Sf8bvSCdAHKJ4KoP8rvjlfPT/UJPwVQrBAiiJYnAqk+5SsAYiCME0FUngik+pSvAIiBME4EUXkikOpTvgIgBsI4EUTliUCqT/kKgBgI40QQlScCqT7lKwBiIIwTQVSeCKT6lB8LgAYw3ouAAujFv311BdBOQW8DCqAX//bVFUA7Bb0NKIBe/NtXVwDtFPQ2oAB68W9ffb0AaAB6I6Sage39jX8jaDvA0wWqAEKL2C5QBaAAzv+bd7qF2d9ZweRQOoAOoAMkGqAdNt2hdICE/Tf8d/PxAqD5SeGU3w0A9Tc9Xo1/+18HTyeguz8F0M1A8/oKoJmA7uUVQDcDzesrgGYCupdXAN0MNK+vAJoJ6F6+XQAEQHWDtP6fx2+v9JrK+Ien7/gofVq/G7+o+ftg3QMogJeIwyhZAVyXDhB+yVP6VrEOoAN4BwguOR4BAXj3VI8Aj4BoE3VfoqPmvQS+AwcghaaXOKofOvT49Gr8qD46ABFECxADVJ/yt8er8aP6CqBZQUQQtUcbiOorAEK4OE4E0fIKgBAaHlcA4WPkcH6xPQWgAPAYTn6bSALDxdMzhrYA1af87XEiiOYj/Kj+eAH8/PqZMBgd//Lj+dgfEUTDKQBCqDmuAIAAUrAOcAaQ8COH8QgodggdQAfwDpA8xngEeAQUm3RteY8Aj4DdRwDtD7qFUj7F//cjgOanON3yKR+fAqiAAjgjREcA4UtxBUAINccVQEiAR8AZQB0gFFh1ug4QIqwD6AChhHrTdYAQfx1guAMQv/SYSARX7yDqP42n86WXPOo/fh+AFlAA5w+0kMAVAHyihgTYHdcB4EOfKUDdBNP66Xw6gA5QekyXFr/vDu8A3gGO3+CRWiRZcHc8nc8jwCOg1KVLi/+LIyDdwfSYRfVpB1M+xam/d+8ABCDFCWDKVwCEEMTTS2C4/KUAzgh6BIDCdIBwC+oAZwDJobwDhAIkgKm8DkAIeQeIECKB6gARvJeXQMCv/BJI/NEdgfIpnu6g6f3R/BRXAOERRgBTPBUo1ae4AlAApJHa+HSLnd5fyo4OoAOkGsryp++w6f1l6F+XDqADpBrK8qfvsOn9Zehf1180jJMNUSR2ngAAAABJRU5ErkJggg==",
+        "description": "Main character from classic Pokemon"
+    },
+    "mask": [
+        [ 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 1, 1, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 1, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 1, 1, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 1, 1, 0, 1, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 1, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 1, 0, 0, 1, 3, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 1, 1, 1, 3, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 1, 4, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 1, 4, 4, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    "cols": 16,
+    "rows": 16
+}
