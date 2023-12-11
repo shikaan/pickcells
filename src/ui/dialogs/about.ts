@@ -1,6 +1,9 @@
 import './about.css'
 import { template } from "../utils";
 
+//@ts-expect-error to get the SHA from the build
+const version = VERSION;
+
 export class AboutDialog {
   template = template(`
     <span>
@@ -13,7 +16,7 @@ export class AboutDialog {
           <h3>PickCells</h3>
           <img class="logo" src="logo.png" alt="logo" />
           <dd>by <a href="https://github.com/shikaan">Manuel Spagnolo</a></dd>
-          <dd>Version ${window.VERSION}</dd>
+          <dd>Version ${version}</dd>
         </center>
         <h3>Credits</h3>
         <ul class="nes-list is-disc">
