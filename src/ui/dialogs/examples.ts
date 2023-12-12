@@ -3,6 +3,8 @@ import { template } from "../utils";
 import { InitialState, State } from '../state';
 import pokemon from '../../templates/pokemon.json';
 import spaceship from '../../templates/spaceship.json';
+import sword from '../../templates/sword.json';
+// import test from '../../templates/test.json';
 
 export class ExamplesDialog {
   template = template(`
@@ -36,7 +38,8 @@ export class ExamplesDialog {
       if (window.confirm('Are you sure you want to lose current progress?\nThis action cannot be undone.')) {
         this.state.set('cols', example.cols);
         this.state.set('rows', example.rows);
-        this.state.set('mask', JSON.parse(JSON.stringify(example.mask)));
+        this.state.set('drawBorders', example.outline);
+        this.state.set('mask', structuredClone(example.mask));
         this.close();
       }
     })
@@ -49,8 +52,8 @@ export class ExamplesDialog {
 
     root.querySelector('section')!.append(this.makeExample(pokemon))
     root.querySelector('section')!.append(this.makeExample(spaceship))
-    root.querySelector('section')!.append(this.makeExample(pokemon))
-    root.querySelector('section')!.append(this.makeExample(pokemon))
+    root.querySelector('section')!.append(this.makeExample(sword))
+    // root.querySelector('section')!.append(this.makeExample(test))
 
     return root
   }

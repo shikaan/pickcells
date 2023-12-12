@@ -1,4 +1,7 @@
 {
+    "$schema": {
+        "version": "1.0.0"
+    },
     "meta": {
         "version": "1.0.0",
         "name": "Spaceship",
@@ -20,5 +23,6 @@
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
     "cols": 12,
-    "rows": 12
+    "rows": 12,
+    "outline": true
 }
