@@ -84,8 +84,9 @@ export class Sidebar {
     </form>`)
 
   private $root!: HTMLElement;
-  $cols: any;
-  $rows: any;
+  private $cols!: HTMLElement;
+  private $rows!: HTMLElement;
+  private $outline!: HTMLElement;
 
   constructor(
     private state: State<typeof initialState>,
@@ -103,6 +104,13 @@ export class Sidebar {
     state.onPropertyChange('rows', (_, value) => {
       this.$rows?.setAttribute('value', value.toString())
     })
+    state.onPropertyChange('drawBorders', (_, value) => {
+      if (value) {
+        this.$outline?.setAttribute('checked', '')
+      } else {
+        this.$outline?.removeAttribute('checked')
+      }
+    })
 
     dialog.register('info', new HelpDialog().render());
     dialog.register('about', new AboutDialog().render());
@@ -112,8 +120,9 @@ export class Sidebar {
   render() {
     const inst = this.template.create()!;
 
-    this.$cols = inst.querySelector('#cols');
-    this.$rows = inst.querySelector('#rows');
+    this.$cols = inst.querySelector('#cols') as HTMLElement;
+    this.$rows = inst.querySelector('#rows') as HTMLElement;
+    this.$outline = inst.querySelector('#outline') as HTMLElement;
 
     this.$cols?.addEventListener('change', this.setStateFromTargetValue('cols', toNumber));
     this.$rows?.addEventListener('change', this.setStateFromTargetValue('rows', toNumber));

@@ -20,6 +20,7 @@ export class Preview {
   `)
 
   private readonly $root: HTMLDivElement;
+  private $sprite?: HTMLCanvasElement;
   private sprites: Sprite[];
 
   constructor(
@@ -42,10 +43,13 @@ export class Preview {
       return this.$root;
     }
 
+    this.$sprite = undefined;
     for (let i = 0; i < previews; i++) {
       const sprite = fromMask(mask, { drawBorders: this.state.get('drawBorders') });
       this.sprites.push(sprite);
-      this.$root.appendChild(this.drawSprite(sprite));
+      const canvas = this.drawSprite(sprite);
+      this.$sprite ||= canvas;
+      this.$root.appendChild(canvas);
     }
 
     this.$root.style.setProperty('--sprite-width', `${cols(this.sprites[0]) * PIXEL_SIZE}px`);
@@ -53,11 +57,18 @@ export class Preview {
     return this.$root;
   }
 
+  getSprite(): HTMLCanvasElement | undefined {
+    return this.$sprite;
+  }
+
   private refresh() {
     this.$root.innerHTML = '';
+    this.$sprite = undefined;
 
     for (const sprite of this.sprites) {
-      this.$root.appendChild(this.drawSprite(sprite));
+      const canvas = this.drawSprite(sprite);
+      this.$sprite ||= canvas;
+      this.$root.appendChild(canvas);
     }
   }
 

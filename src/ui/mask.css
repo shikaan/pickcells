@@ -62,6 +62,15 @@
     & button {
       margin-top: var(--size);
       height: var(--control-size);
+
+      &.download {
+        background: url('/download.png');
+        background-size: 24px;
+        background-repeat: no-repeat;
+        width: 40px;
+        background-position-x: calc(50% - 1px);
+        background-position-y: calc(50% - 1px);
+      }
     }
   }
 }

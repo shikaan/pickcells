@@ -8,7 +8,7 @@ import { Dialog } from './ui/dialogs/dialogs';
 const state = new State<InitialState>(initialState);
 const dialog = new Dialog();
 const preview = new Preview(state);
-const mask = new Mask(state);
+const mask = new Mask(state, () => preview.getSprite());
 const sidebar = new Sidebar(state, () => preview.render(), dialog);
 
 render(dialog.render(), document.querySelector('#dialogs')!);

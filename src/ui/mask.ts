@@ -56,6 +56,7 @@ export class Mask {
       <div class="controls">
         <button id="zoom-in" class="nes-btn">+</button>
         <button id="zoom-out" class="nes-btn">-</button>
+        <button id="download" class="nes-btn download"> </button>
       </div>
     </div>
   `)
@@ -70,6 +71,7 @@ export class Mask {
 
   constructor(
     private state: State<InitialState>,
+    private getSprite: () => HTMLCanvasElement | undefined
   ) {
     state.onPropertyChange('rows', this.onRowChange);
     state.onPropertyChange('cols', this.onColumnChange);
@@ -81,6 +83,7 @@ export class Mask {
     const mask = container.querySelector('.mask') as HTMLElement;
     const zoomIn = container.querySelector('#zoom-in') as HTMLButtonElement;
     const zoomOut = container.querySelector('#zoom-out') as HTMLButtonElement;
+    const download = container.querySelector('#download') as HTMLButtonElement;
 
     const cols = this.state.get('cols');
     const rows = this.state.get('rows');
@@ -107,6 +110,7 @@ export class Mask {
 
     zoomIn.addEventListener('click', this.makeZoomFn(1))
     zoomOut.addEventListener('click', this.makeZoomFn(-1))
+    download.addEventListener('click', this.dowload)
 
     this.$root?.replaceWith(container);
     this.$root = container;
@@ -195,5 +199,30 @@ export class Mask {
   private getCurrentZoomLevel(): number {
     const currentZoom = this.$mask.style.getPropertyValue('--zoom') || DEFAULT_ZOOM_LEVEL;
     return ZOOM_LEVELS.findIndex(i => i === currentZoom);
+  }
+
+  private dowload = () => {
+    const object = JSON.stringify({
+      $schema: { version: "1.0.0" },
+      meta: {
+        name: "PickCells Mask",
+        description: "Exported from PickCells",
+        preview: this.getSprite()?.toDataURL() ?? ""
+      },
+      mask: this.state.get('mask'),
+      cols: this.state.get('cols'),
+      rows: this.state.get('rows'),
+      outline: this.state.get('drawBorders')
+    }, null, 2);
+
+    const blob = new Blob([object], { type: 'application/json' });
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "pickcells.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
   }
 }
