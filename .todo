@@ -8,7 +8,7 @@ To Do
 - [ ] allow panning the grid (a "hand" tool)
 - [ ] shortcuts (copy from aseprite)
 - [ ] bulk downloads (i.e., download the sprites as a spritesheet)
-- [ ] save/load masks
+- [ ] load masks
 - [ ] export/download options (i.e., download at 10x, 1x)
 - [ ] when mirroring, show the mirrored cells
 - [ ] dedupe previews

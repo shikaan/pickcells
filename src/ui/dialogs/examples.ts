@@ -4,7 +4,7 @@ import { InitialState, State } from '../state';
 import pokemon from '../../templates/pokemon.json';
 import spaceship from '../../templates/spaceship.json';
 import sword from '../../templates/sword.json';
-// import test from '../../templates/test.json';
+import potion from '../../templates/potion.json';
 
 export class ExamplesDialog {
   template = template(`
@@ -53,7 +53,7 @@ export class ExamplesDialog {
     root.querySelector('section')!.append(this.makeExample(pokemon))
     root.querySelector('section')!.append(this.makeExample(spaceship))
     root.querySelector('section')!.append(this.makeExample(sword))
-    // root.querySelector('section')!.append(this.makeExample(test))
+    root.querySelector('section')!.append(this.makeExample(potion))
 
     return root
   }
