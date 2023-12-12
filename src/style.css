@@ -10,7 +10,8 @@
 
 /*  Fix rendering issue */
 .nes-input,
-.nes-textarea {
+.nes-textarea,
+.nes-btn {
   border-image-repeat: inherit;
 }
 
