@@ -8,19 +8,19 @@ import { identity, template, toNumber } from "./utils";
 import { ExamplesDialog } from './dialogs/examples';
 
 const maskCellValueToClassName = {
-  [MaskCell.AlwaysBorder]: 'border',
-  [MaskCell.AlwaysFilled]: 'filled',
+  [MaskCell.Border]: 'border',
+  [MaskCell.Filled]: 'filled',
   [MaskCell.BorderOrFilled]: 'filled-border',
   [MaskCell.EmptyOrFilled]: 'filled-empty',
-  [MaskCell.AlwaysEmpty]: 'empty',
+  [MaskCell.Empty]: 'empty',
 }
 
 const maskCellValueToToolName = {
-  [MaskCell.AlwaysBorder]: 'Pencil',
-  [MaskCell.AlwaysFilled]: 'Color',
+  [MaskCell.Border]: 'Pencil',
+  [MaskCell.Filled]: 'Color',
   [MaskCell.BorderOrFilled]: 'Pencil-Color',
   [MaskCell.EmptyOrFilled]: 'Empty-Color',
-  [MaskCell.AlwaysEmpty]: 'Eraser',
+  [MaskCell.Empty]: 'Eraser',
 }
 
 export class Sidebar {
@@ -67,12 +67,12 @@ export class Sidebar {
 
         <div class="nes-field">
           <label for="count">Results</label>
-          <input type="number" id="count" class="nes-input" min="1" max="100" value="${initialState.previewCount}">
+          <input type="number" id="count" class="nes-input" min="1" max="100" value="${initialState.results}">
         </div>
 
         <div class="nes-field">
           <label for="outline">
-            <input type="checkbox" id="outline" class="nes-checkbox" ${initialState.drawBorders ? 'checked' : ''}>
+            <input type="checkbox" id="outline" class="nes-checkbox" ${initialState.outline ? 'checked' : ''}>
             <span>Outline</span>
           </label>
           <label for="mirrorX">
@@ -90,8 +90,8 @@ export class Sidebar {
   private $root!: HTMLElement;
   private $cols!: HTMLElement;
   private $rows!: HTMLElement;
-  private $outline!: HTMLElement;
-  private $mirrorX!: HTMLElement;
+  private $outline!: HTMLInputElement;
+  private $mirrorX!: HTMLInputElement;
 
   constructor(
     private state: State<typeof initialState>,
@@ -109,11 +109,11 @@ export class Sidebar {
     state.onPropertyChange('rows', (_, value) => {
       this.$rows?.setAttribute('value', value.toString())
     })
-    state.onPropertyChange('drawBorders', (_, value) => {
-      this.setBooleanProperty(this.$outline, 'checked', value)
+    state.onPropertyChange('outline', (_, value) => {
+      this.$outline.checked = value
     })
     state.onPropertyChange('mirrorX', (_, value) => {
-      this.setBooleanProperty(this.$mirrorX, 'checked', value)
+      this.$mirrorX.checked = value
     })
 
     dialog.register('info', new HelpDialog().render());
@@ -126,14 +126,14 @@ export class Sidebar {
 
     this.$cols = inst.querySelector('#cols') as HTMLElement;
     this.$rows = inst.querySelector('#rows') as HTMLElement;
-    this.$outline = inst.querySelector('#outline') as HTMLElement;
-    this.$mirrorX = inst.querySelector('#mirrorX') as HTMLElement;
+    this.$outline = inst.querySelector('#outline') as HTMLInputElement;
+    this.$mirrorX = inst.querySelector('#mirrorX') as HTMLInputElement;
 
     this.$cols?.addEventListener('change', this.setStateFromTargetValue('cols', toNumber));
     this.$rows?.addEventListener('change', this.setStateFromTargetValue('rows', toNumber));
     inst.querySelector('#color')?.addEventListener('change', this.setStateFromTargetValue('color', identity));
-    inst.querySelector('#count')?.addEventListener('change', this.setStateFromTargetValue('previewCount', toNumber));
-    this.$outline.addEventListener('change', this.setStateFromTargetChecked('drawBorders'));
+    inst.querySelector('#count')?.addEventListener('change', this.setStateFromTargetValue('results', toNumber));
+    this.$outline.addEventListener('change', this.setStateFromTargetChecked('outline'));
     this.$mirrorX.addEventListener('change', this.setStateFromTargetChecked('mirrorX'));
 
     inst.querySelectorAll('input[name="tool"]')?.forEach(e => {
@@ -152,7 +152,7 @@ export class Sidebar {
     this.state.set(property, transform(element.value));
   }
 
-  private setStateFromTargetChecked = <S extends 'drawBorders' | 'mirrorX'>(property: S) => (e: Event) => {
+  private setStateFromTargetChecked = <S extends 'outline' | 'mirrorX'>(property: S) => (e: Event) => {
     const element = e.target as HTMLInputElement;
     this.state.set(property, element.checked);
   }
@@ -160,13 +160,5 @@ export class Sidebar {
   private onSubmit = (e: Event) => {
     e.preventDefault();
     this.submit();
-  }
-
-  private setBooleanProperty($el: HTMLElement, property: string, value: boolean) {
-    if (value) {
-      $el.setAttribute(property, '')
-    } else {
-      $el.removeAttribute(property)
-    }
   }
 }

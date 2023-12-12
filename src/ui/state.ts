@@ -50,18 +50,18 @@ export interface InitialState {
   mask: Mask;
   color: string;
   tool: MaskCell,
-  previewCount: number,
-  drawBorders: boolean,
+  results: number,
+  outline: boolean,
   mirrorX: boolean,
 }
 
 export const initialState: InitialState = {
   cols: 8,
   rows: 8,
-  mask: make(8, 8, MaskCell.AlwaysEmpty),
+  mask: make(8, 8, MaskCell.Empty),
   color: '#e76e55',
-  tool: MaskCell.AlwaysBorder,
-  previewCount: 8,
-  drawBorders: true,
+  tool: MaskCell.Border,
+  results: 8,
+  outline: true,
   mirrorX: true,
 }

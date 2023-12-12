@@ -1,19 +1,19 @@
 import { Grid } from "./grid";
 
 export enum MaskCell {
-  AlwaysEmpty = 0,
-  AlwaysBorder = 1,
-  AlwaysFilled = 2,
+  Empty = 0,
+  Border = 1,
+  Filled = 2,
   BorderOrFilled = 3,
   EmptyOrFilled = 4
 }
 
 export const MaskCellValues = [
-  MaskCell.AlwaysBorder,
-  MaskCell.AlwaysFilled,
+  MaskCell.Border,
+  MaskCell.Filled,
   MaskCell.BorderOrFilled,
   MaskCell.EmptyOrFilled,
-  MaskCell.AlwaysEmpty,
+  MaskCell.Empty,
 ]
 
 export const NUMBER_OF_STATES = MaskCellValues.length;

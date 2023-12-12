@@ -15,7 +15,7 @@ export function makeSpriteCell(s: string): SpriteCell {
 
 interface Options {
   mirrorY?: false,
-  drawBorders: boolean
+  outline: boolean
   mirrorX: boolean,
 }
 
@@ -35,11 +35,11 @@ export const fromMask = (mask: Mask, options: Options): Sprite => {
       }
     }
 
-    if (cell == MaskCell.AlwaysEmpty) {
+    if (cell == MaskCell.Empty) {
       borderless[row][col] = SpriteCell.Empty;
-    } else if (cell == MaskCell.AlwaysBorder) {
+    } else if (cell == MaskCell.Border) {
       borderless[row][col] = SpriteCell.Border;
-    } else if (cell == MaskCell.AlwaysFilled) {
+    } else if (cell == MaskCell.Filled) {
       borderless[row][col] = SpriteCell.Filled;
     } else if (cell == MaskCell.BorderOrFilled) {
       borderless[row][col] = Math.random() > 0.5 ? SpriteCell.Border : SpriteCell.Filled;
@@ -50,7 +50,7 @@ export const fromMask = (mask: Mask, options: Options): Sprite => {
     }
   });
 
-  if (!options.drawBorders) return borderless
+  if (!options.outline) return borderless
 
   const result: Grid<SpriteCell> = [];
 

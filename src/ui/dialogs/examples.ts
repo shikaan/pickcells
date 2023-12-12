@@ -1,10 +1,11 @@
 import './examples.css'
 import { template } from "../utils";
 import { InitialState, State } from '../state';
-import pokemon from '../../templates/pokemon.json';
-import spaceship from '../../templates/spaceship.json';
-import sword from '../../templates/sword.json';
-import potion from '../../templates/potion.json';
+
+import pokemon from '../../examples/pokemon.json';
+import spaceship from '../../examples/spaceship.json';
+import sword from '../../examples/sword.json';
+import potion from '../../examples/potion.json';
 
 export class ExamplesDialog {
   template = template(`
@@ -32,10 +33,10 @@ export class ExamplesDialog {
     `).create();
 
     result.querySelector('button')?.addEventListener('click', () => {
-      if (window.confirm('Are you sure you want to lose current progress?\nThis action cannot be undone.')) {
+      if (window.confirm('Are you sure you want to load this example and lose current progress?\nThis action cannot be undone.')) {
         this.state.set('cols', example.cols);
         this.state.set('rows', example.rows);
-        this.state.set('drawBorders', example.outline);
+        this.state.set('outline', example.outline);
         this.state.set('mirrorX', example.mirrorX);
         this.state.set('mask', structuredClone(example.mask));
         this.close();
@@ -47,11 +48,12 @@ export class ExamplesDialog {
 
   render() {
     const root = this.template.create() as HTMLElement;
+    const section = root.querySelector('section') as HTMLElement;
 
-    root.querySelector('section')!.append(this.makeExample(pokemon))
-    root.querySelector('section')!.append(this.makeExample(spaceship))
-    root.querySelector('section')!.append(this.makeExample(sword))
-    root.querySelector('section')!.append(this.makeExample(potion))
+    section.append(this.makeExample(pokemon))
+    section.append(this.makeExample(spaceship))
+    section.append(this.makeExample(sword))
+    section.append(this.makeExample(potion))
 
     return root
   }

@@ -15,7 +15,7 @@ class MaskCell {
   constructor(
     private x: number,
     private y: number,
-    private type = MaskCellType.AlwaysEmpty,
+    private type = MaskCellType.Empty,
     private disabled: boolean = false,
   ) { }
 
@@ -54,10 +54,10 @@ export class Mask {
     <div class="mask-container">
       <div class="mask"></div>
       <div class="controls">
-        <button id="zoom-in" class="nes-btn">+</button>
-        <button id="zoom-out" class="nes-btn"></button>
+        <button id="clear" class="nes-btn"></button>
         <button id="download" class="nes-btn"></button>
-        <button id="new" class="nes-btn"></button>
+        <button id="zoom-in" class="nes-btn"></button>
+        <button id="zoom-out" class="nes-btn"></button>
       </div>
     </div>
   `)
@@ -86,6 +86,7 @@ export class Mask {
     const zoomIn = container.querySelector('#zoom-in') as HTMLButtonElement;
     const zoomOut = container.querySelector('#zoom-out') as HTMLButtonElement;
     const download = container.querySelector('#download') as HTMLButtonElement;
+    const clear = container.querySelector('#clear') as HTMLButtonElement;
 
     const cols = this.state.get('cols');
     const rows = this.state.get('rows');
@@ -114,6 +115,7 @@ export class Mask {
     zoomIn.addEventListener('click', this.makeZoomFn(1))
     zoomOut.addEventListener('click', this.makeZoomFn(-1))
     download.addEventListener('click', this.dowload)
+    clear.addEventListener('click', this.clear)
 
     this.$root?.replaceWith(container);
     this.$root = container;
@@ -153,7 +155,7 @@ export class Mask {
     const diff = newValue - oldValue;
 
     if (diff >= 0) {
-      const delta = new Array(diff).fill(MaskCellType.AlwaysEmpty)
+      const delta = new Array(diff).fill(MaskCellType.Empty)
       this.state.set('mask', mask.map(row => [...row, ...delta]))
     } else {
       this.state.set('mask', mask.map(row => row.slice(0, diff)))
@@ -167,7 +169,7 @@ export class Mask {
     if (diff >= 0) {
       const cols = this.state.get('cols');
       for (let i = 0; i < diff; i++) {
-        const emptyRow = new Array(cols).fill(MaskCellType.AlwaysEmpty);
+        const emptyRow = new Array(cols).fill(MaskCellType.Empty);
         mask.push(emptyRow)
       }
       this.state.set('mask', mask)
@@ -215,7 +217,7 @@ export class Mask {
       mask: this.state.get('mask'),
       cols: this.state.get('cols'),
       rows: this.state.get('rows'),
-      outline: this.state.get('drawBorders')
+      outline: this.state.get('outline')
     }, null, 2);
 
     const blob = new Blob([object], { type: 'application/json' });
@@ -227,5 +229,11 @@ export class Mask {
     a.click();
 
     URL.revokeObjectURL(url);
+  }
+
+  private clear = () => {
+    if (confirm('Are you sure you want to create a new mask and lose current progress?\nThis action cannot be undone.')) {
+      this.state.set('mask', make(this.state.get('rows'), this.state.get('cols'), MaskCellType.Empty))
+    }
   }
 }

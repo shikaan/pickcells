@@ -35,17 +35,17 @@ export class Preview {
     this.$root.innerHTML = '';
     this.sprites = [];
 
-    const previews = this.state.get('previewCount');
+    const previews = this.state.get('results');
     const mask = this.state.get('mask');
 
-    if (isEmpty(mask, MaskCell.AlwaysEmpty)) {
+    if (isEmpty(mask, MaskCell.Empty)) {
       this.$root.appendChild(this.emptyState.create());
       return this.$root;
     }
 
     this.$sprite = undefined;
     for (let i = 0; i < previews; i++) {
-      const sprite = fromMask(mask, { drawBorders: this.state.get('drawBorders'), mirrorX: this.state.get('mirrorX') });
+      const sprite = fromMask(mask, { outline: this.state.get('outline'), mirrorX: this.state.get('mirrorX') });
       this.sprites.push(sprite);
       const canvas = this.drawSprite(sprite);
       this.$sprite ||= canvas;

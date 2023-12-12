@@ -73,12 +73,16 @@
         background-image: url('/download.png');
       }
 
-      &#new {
+      &#clear {
         background-image: url('/new.png');
       }
 
       &#zoom-out {
         background-image: url('/zoomout.png');
+      }
+
+      &#zoom-in {
+        background-image: url('/zoomin.png');
       }
     }
   }
