@@ -76,6 +76,7 @@ export class Mask {
     state.onPropertyChange('rows', this.onRowChange);
     state.onPropertyChange('cols', this.onColumnChange);
     state.onPropertyChange('mask', () => this.render());
+    state.onPropertyChange('mirrorX', () => this.render());
   }
 
   render() {
@@ -94,7 +95,8 @@ export class Mask {
     this.cellsRefs = make(rows, cols, new MaskCell(0, 0, 0, false));
 
     forEachCell(this.state.get('mask'), (cell, row, col) => {
-      const maskCell = new MaskCell(col, row, cell, col >= Math.ceil(cols / 2));
+      const disabled = this.state.get('mirrorX') && col >= Math.ceil(cols / 2)
+      const maskCell = new MaskCell(col, row, cell, disabled);
       this.cellsRefs[row][col] = maskCell;
       mask.appendChild(maskCell.render());
     })

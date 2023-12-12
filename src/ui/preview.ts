@@ -45,7 +45,7 @@ export class Preview {
 
     this.$sprite = undefined;
     for (let i = 0; i < previews; i++) {
-      const sprite = fromMask(mask, { drawBorders: this.state.get('drawBorders') });
+      const sprite = fromMask(mask, { drawBorders: this.state.get('drawBorders'), mirrorX: this.state.get('mirrorX') });
       this.sprites.push(sprite);
       const canvas = this.drawSprite(sprite);
       this.$sprite ||= canvas;

@@ -283,5 +283,6 @@
   ],
   "cols": 15,
   "rows": 16,
-  "outline": false
+  "outline": false,
+  "mirrorX": true
 }

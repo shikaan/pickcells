@@ -23,5 +23,6 @@
     ],
     "cols": 12,
     "rows": 12,
-    "outline": true
+    "outline": true,
+    "mirrorX": true
 }

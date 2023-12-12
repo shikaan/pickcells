@@ -14,9 +14,9 @@ export function makeSpriteCell(s: string): SpriteCell {
 }
 
 interface Options {
-  mirrorX?: true,
   mirrorY?: false,
   drawBorders: boolean
+  mirrorX: boolean,
 }
 
 export const fromMask = (mask: Mask, options: Options): Sprite => {
@@ -26,11 +26,13 @@ export const fromMask = (mask: Mask, options: Options): Sprite => {
   forEachCell(mask, (cell, row, col) => {
     if (col == 0) borderless.push([]);
 
-    const width = cols(mask);
-    const line = borderless[row];
-    if (col >= width / 2) {
-      line[col] = line[width - col - 1];
-      return;
+    if (options.mirrorX) {
+      const width = cols(mask);
+      const line = borderless[row];
+      if (col >= width / 2) {
+        line[col] = line[width - col - 1];
+        return;
+      }
     }
 
     if (cell == MaskCell.AlwaysEmpty) {

@@ -13,10 +13,7 @@ export class ExamplesDialog {
         <h2>Examples</h2>
         <button class="nes-btn is-error close">X</button>
       </header>
-      <section>
-
-        
-      </section>
+      <section></section>
     </span>
   `)
 
@@ -39,6 +36,7 @@ export class ExamplesDialog {
         this.state.set('cols', example.cols);
         this.state.set('rows', example.rows);
         this.state.set('drawBorders', example.outline);
+        this.state.set('mirrorX', example.mirrorX);
         this.state.set('mask', structuredClone(example.mask));
         this.close();
       }

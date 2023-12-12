@@ -75,6 +75,10 @@ export class Sidebar {
             <input type="checkbox" id="outline" class="nes-checkbox" ${initialState.drawBorders ? 'checked' : ''}>
             <span>Outline</span>
           </label>
+          <label for="mirrorX">
+            <input type="checkbox" id="mirrorX" class="nes-checkbox" ${initialState.mirrorX ? 'checked' : ''}>
+            <span>Mirror X</span>
+          </label>
         </div>
       </section>
 
@@ -87,6 +91,7 @@ export class Sidebar {
   private $cols!: HTMLElement;
   private $rows!: HTMLElement;
   private $outline!: HTMLElement;
+  private $mirrorX!: HTMLElement;
 
   constructor(
     private state: State<typeof initialState>,
@@ -95,8 +100,8 @@ export class Sidebar {
   ) {
     document.documentElement.style.setProperty("--color-filled", initialState.color);
 
-    state.onPropertyChange('color', (_, newValue) => {
-      document.documentElement.style.setProperty("--color-filled", newValue);
+    state.onPropertyChange('color', (_, value) => {
+      document.documentElement.style.setProperty("--color-filled", value);
     });
     state.onPropertyChange('cols', (_, value) => {
       this.$cols?.setAttribute('value', value.toString())
@@ -105,11 +110,10 @@ export class Sidebar {
       this.$rows?.setAttribute('value', value.toString())
     })
     state.onPropertyChange('drawBorders', (_, value) => {
-      if (value) {
-        this.$outline?.setAttribute('checked', '')
-      } else {
-        this.$outline?.removeAttribute('checked')
-      }
+      this.setBooleanProperty(this.$outline, 'checked', value)
+    })
+    state.onPropertyChange('mirrorX', (_, value) => {
+      this.setBooleanProperty(this.$mirrorX, 'checked', value)
     })
 
     dialog.register('info', new HelpDialog().render());
@@ -123,12 +127,14 @@ export class Sidebar {
     this.$cols = inst.querySelector('#cols') as HTMLElement;
     this.$rows = inst.querySelector('#rows') as HTMLElement;
     this.$outline = inst.querySelector('#outline') as HTMLElement;
+    this.$mirrorX = inst.querySelector('#mirrorX') as HTMLElement;
 
     this.$cols?.addEventListener('change', this.setStateFromTargetValue('cols', toNumber));
     this.$rows?.addEventListener('change', this.setStateFromTargetValue('rows', toNumber));
     inst.querySelector('#color')?.addEventListener('change', this.setStateFromTargetValue('color', identity));
     inst.querySelector('#count')?.addEventListener('change', this.setStateFromTargetValue('previewCount', toNumber));
-    inst.querySelector('#outline')?.addEventListener('change', this.setStateFromTargetChecked('drawBorders'));
+    this.$outline.addEventListener('change', this.setStateFromTargetChecked('drawBorders'));
+    this.$mirrorX.addEventListener('change', this.setStateFromTargetChecked('mirrorX'));
 
     inst.querySelectorAll('input[name="tool"]')?.forEach(e => {
       e.addEventListener('change', this.setStateFromTargetValue('tool', makeMask));
@@ -146,7 +152,7 @@ export class Sidebar {
     this.state.set(property, transform(element.value));
   }
 
-  private setStateFromTargetChecked = <S extends 'drawBorders'>(property: S) => (e: Event) => {
+  private setStateFromTargetChecked = <S extends 'drawBorders' | 'mirrorX'>(property: S) => (e: Event) => {
     const element = e.target as HTMLInputElement;
     this.state.set(property, element.checked);
   }
@@ -154,5 +160,13 @@ export class Sidebar {
   private onSubmit = (e: Event) => {
     e.preventDefault();
     this.submit();
+  }
+
+  private setBooleanProperty($el: HTMLElement, property: string, value: boolean) {
+    if (value) {
+      $el.setAttribute(property, '')
+    } else {
+      $el.removeAttribute(property)
+    }
   }
 }

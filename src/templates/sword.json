@@ -27,5 +27,6 @@
   ],
   "cols": 15,
   "rows": 16,
-  "outline": true
+  "outline": true,
+  "mirrorX": true
 }

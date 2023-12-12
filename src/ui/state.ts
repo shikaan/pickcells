@@ -52,6 +52,7 @@ export interface InitialState {
   tool: MaskCell,
   previewCount: number,
   drawBorders: boolean,
+  mirrorX: boolean,
 }
 
 export const initialState: InitialState = {
@@ -62,4 +63,5 @@ export const initialState: InitialState = {
   tool: MaskCell.AlwaysBorder,
   previewCount: 8,
   drawBorders: true,
+  mirrorX: true,
 }
