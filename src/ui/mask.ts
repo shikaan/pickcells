@@ -55,8 +55,9 @@ export class Mask {
       <div class="mask"></div>
       <div class="controls">
         <button id="zoom-in" class="nes-btn">+</button>
-        <button id="zoom-out" class="nes-btn">-</button>
-        <button id="download" class="nes-btn download"> </button>
+        <button id="zoom-out" class="nes-btn"></button>
+        <button id="download" class="nes-btn"></button>
+        <button id="new" class="nes-btn"></button>
       </div>
     </div>
   `)
