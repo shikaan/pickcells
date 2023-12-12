@@ -217,7 +217,8 @@ export class Mask {
       mask: this.state.get('mask'),
       cols: this.state.get('cols'),
       rows: this.state.get('rows'),
-      outline: this.state.get('outline')
+      outline: this.state.get('outline'),
+      mirrorX: this.state.get('mirrorX')
     }, null, 2);
 
     const blob = new Blob([object], { type: 'application/json' });

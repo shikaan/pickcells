@@ -6,6 +6,7 @@ import pokemon from '../../examples/pokemon.json';
 import spaceship from '../../examples/spaceship.json';
 import sword from '../../examples/sword.json';
 import potion from '../../examples/potion.json';
+import mushroom from '../../examples/mushroom.json';
 
 export class ExamplesDialog {
   template = template(`
@@ -54,6 +55,7 @@ export class ExamplesDialog {
     section.append(this.makeExample(spaceship))
     section.append(this.makeExample(sword))
     section.append(this.makeExample(potion))
+    section.append(this.makeExample(mushroom))
 
     return root
   }
