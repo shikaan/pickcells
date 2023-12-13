@@ -27,14 +27,15 @@ export class Sidebar {
   template = template(`
     <form>
       <header>
-        <span>
-          <img src="logo.png"/>
+        <span class="logo-container">
+          <img src="logo.png" alt="logo"/>
           <h1>PickCells</h1>
         </span>
         <menu class="links">
-          <a href="#info" class="nes-text">Help</a>&nbsp;|&nbsp;
-          <a href="#examples" class="nes-text">Examples</a>&nbsp;|&nbsp;
-          <a href="#about" class="nes-text">About</a>
+          <a href="#info" class="nes-text">Help</a>|
+          <a href="#examples" class="nes-text">Examples</a>|
+          <a href="https://github.com/shikaan/pickcells/issues/new" target="_blank" class="nes-text">Feedback</a>|
+          <a href="#about" class="nes-text">?</a>
         </menu>
       </header>
 

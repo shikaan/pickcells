@@ -1,5 +1,6 @@
 .layout-sidebar {
   form {
+    min-width: 320px;
     height: 100%;
 
     display: grid;
@@ -17,14 +18,17 @@
 
       grid-area: title;
 
-      h1 {
-        display: inline;
-        line-height: var(--top-line-size);
-        vertical-align: middle;
-      }
+      .logo-container {
+        display: flex;
 
-      img {
-        height: var(--top-line-size);
+        h1 {
+          line-height: var(--top-line-size);
+          padding-left: var(--size-2);
+        }
+
+        img {
+          height: var(--top-line-size);
+        }
       }
 
       .links {
@@ -33,6 +37,18 @@
         align-items: center;
         padding: var(--v-spacing) var(--h-spacing);
         font-size: small;
+
+        a:not(:last-child, :first-child) {
+          padding: 0 8px;
+        }
+
+        a:first-child {
+          padding-right: 8px;
+        }
+
+        a:last-child {
+          padding-left: 8px;
+        }
       }
     }
 

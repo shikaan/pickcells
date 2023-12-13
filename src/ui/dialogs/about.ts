@@ -15,8 +15,13 @@ export class AboutDialog {
         <center>
           <h3>PickCells</h3>
           <img class="logo" src="logo.png" alt="logo" />
-          <dd>by <a href="https://github.com/shikaan">Manuel Spagnolo</a></dd>
-          <dd>Version ${version}</dd>
+          <p>by <a href="https://github.com/shikaan">shikaan</a></p>
+          <small>
+            Version: ${version}</br>
+            <a href="https://github.com/shikaan/pickcells" target="_blank">Code</a> |
+            <a href="https://github.com/shikaan/pickcells/blob/main/LICENSE" target="_blank">License</a> |
+            <a href="https://github.com/shikaan/pickcells/issues/new" target="_blank">Feedback</a>
+          </small>
         </center>
         <h3>Credits</h3>
         <ul class="nes-list is-disc">
