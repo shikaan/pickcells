@@ -39,6 +39,7 @@ export class Preview {
     const mask = this.state.get('mask');
 
     if (isEmpty(mask, MaskCell.Empty)) {
+      this.$root.style.setProperty('--sprite-width', '999999px');
       this.$root.appendChild(this.emptyState.create());
       return this.$root;
     }

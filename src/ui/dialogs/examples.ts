@@ -2,11 +2,16 @@ import './examples.css'
 import { template } from "../utils";
 import { InitialState, State } from '../state';
 
-import pokemon from '../../examples/pokemon.json';
-import spaceship from '../../examples/spaceship.json';
-import sword from '../../examples/sword.json';
-import potion from '../../examples/potion.json';
-import mushroom from '../../examples/mushroom.json';
+const examples = [
+  'pokemon',
+  'spaceship',
+  'sword',
+  'potion',
+  'mushroom',
+  'mask',
+  'arrow',
+  'hammer'
+]
 
 export class ExamplesDialog {
   template = template(`
@@ -51,11 +56,10 @@ export class ExamplesDialog {
     const root = this.template.create() as HTMLElement;
     const section = root.querySelector('section') as HTMLElement;
 
-    section.append(this.makeExample(pokemon))
-    section.append(this.makeExample(spaceship))
-    section.append(this.makeExample(sword))
-    section.append(this.makeExample(potion))
-    section.append(this.makeExample(mushroom))
+    Promise.all(examples
+      .map(example => fetch(`/examples/${example}.json`)))
+      .then(responses => Promise.all(responses.map(response => response.json())))
+      .then(examples => examples.forEach(example => section.append(this.makeExample(example))))
 
     return root
   }
