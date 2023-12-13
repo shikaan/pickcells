@@ -38,14 +38,14 @@ export class Dialog {
 
     dialog.id = `dialog-${id}`
     dialog.appendChild($content);
-    dialog.addEventListener('close', this.close);
-    dialog.addEventListener('cancel', this.close);
+    dialog.addEventListener('close', () => this.close(id));
+    dialog.addEventListener('cancel', () => this.close(id));
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) {
         this.close();
       }
     })
-    dialog.querySelector('header .close')?.addEventListener('click', this.close);
+    dialog.querySelector('header .close')?.addEventListener('click', () => this.close(id));
 
     this.$root.appendChild(dialog);
     this.$contents[id] = dialog;
@@ -63,19 +63,16 @@ export class Dialog {
     this.$contents[this.$current].showModal();
   }
 
-  close = () => {
-    if (!this.$current) return;
-    this.$contents[this.$current].close();
+  close = (id = this.$current) => {
+    if (!id) return;
+    this.$contents[id].close();
     this.$current = null;
-    window.location.hash = '';
+    window.location.hash = window.location.hash.replace(`${id}`, '');
   }
 
   private onHashChange = () => {
     const id = window.location.hash.slice(1);
-    if (!this.$contents[id]) {
-      this.close();
-      return;
-    }
+    if (!this.$contents[id] || this.$current === id) return;
 
     this.open(id);
   }

@@ -13,7 +13,7 @@ export class HelpDialog {
         
         <h4>Getting Started</h4>
         <p>Select a tool, draw on the grid, and hit <i>Generate</i>.</p> 
-        <p>Check out <a href="#templates">the templates</a> for some examples.</p>
+        <p>Check out <a href="#examples">the examples</a> for some inspiration.</p>
       
         <h4>Tools</h4>
         <ul class="nes-list is-disc">
