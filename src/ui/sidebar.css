@@ -54,6 +54,7 @@
 
     section {
       grid-area: fields;
+      overflow-y: auto;
 
       .field-group--2 {
         display: grid;
@@ -124,7 +125,7 @@
 
     footer {
       grid-area: submit;
-      padding: var(--v-spacing);
+      padding-top: var(--v-spacing);
       text-align: center;
 
       .nes-btn {

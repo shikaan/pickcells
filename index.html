@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>PickCells - Pixel Art Generator</title>
+    <meta name="viewport" content="viewport-fit=cover" />
     <link rel="stylesheet" href="/src/style.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -10,17 +11,19 @@
     <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
-    <aside class="nes-container layout-sidebar">
-      <slot id="sidebar"></slot>
-    </aside>
-    <section class="nes-container with-title layout-mask">
-      <p class="title">Mask</p>
-      <slot id="mask"></slot>
-    </section>
-    <section class="nes-container with-title layout-preview">
-      <p class="title">Preview</p>
-      <slot id="preview"></slot>
-    </section>
+    <main>
+      <aside class="nes-container layout-sidebar">
+        <slot id="sidebar"></slot>
+      </aside>
+      <section class="nes-container with-title layout-mask">
+        <p class="title">Mask</p>
+        <slot id="mask"></slot>
+      </section>
+      <section class="nes-container with-title layout-preview">
+        <p class="title">Preview</p>
+        <slot id="preview"></slot>
+      </section>
+    </main>
     <section id="dialogs"></section>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -11,10 +11,7 @@
 /*  Fix rendering issue */
 .nes-input,
 .nes-textarea,
-.nes-btn {
-  border-image-repeat: inherit;
-}
-
+.nes-btn,
 .nes-progress {
   border-image-repeat: inherit;
 }
@@ -102,27 +99,28 @@ body {
   -ms-user-select: none;
   user-select: none;
 
-  padding: var(--spacing);
+  main {
+    padding: var(--spacing);
 
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: var(--spacing);
-  grid-template-areas:
-    "side main main main";
-  height: 100vh;
-}
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: var(--spacing);
+    height: 100vh;
 
-.layout-sidebar {
-  grid-area: 1/1/6/2;
-}
 
-.layout-mask {
-  grid-area: 1/2/4/5;
-}
+    .layout-sidebar {
+      grid-area: 1/1/6/2;
+    }
 
-.layout-preview {
-  grid-area: 4/2/6/5;
+    .layout-mask {
+      grid-area: 1/2/4/5;
+    }
+
+    .layout-preview {
+      grid-area: 4/2/6/5;
+    }
+  }
 }
 
 .with-border {
